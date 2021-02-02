@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Smirnov Alexey](https://up.htmlacademy.ru/react/6/user/1429123).
-* Наставник: `Неизвестно`.
+* Наставник: `Юлия Корецкая`.
 
 ---
 
