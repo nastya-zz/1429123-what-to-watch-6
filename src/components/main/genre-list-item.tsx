@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import * as React from 'react'
+import {Genre, TGenreStrings} from "../../mocks/genres";
 
-const GenreListItem = (props) => {
-  const {genre} = props;
+const GenreListItem = ({genre}) => {
+  // const {genre} = props;
   return (
     <>
       <li className="catalog__genres-item catalog__genres-item--active">
@@ -12,8 +12,5 @@ const GenreListItem = (props) => {
   );
 };
 
-GenreListItem.propTypes = {
-  genre: PropTypes.string
-};
 
 export default GenreListItem;

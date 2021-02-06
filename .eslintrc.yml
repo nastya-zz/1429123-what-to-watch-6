@@ -3,16 +3,18 @@ env:
   browser: true
   commonjs: true
 
-extends: ['htmlacademy/es6', 'plugin:react/recommended']
-
+extends: ['airbnb-typescript']
+include: ["src/**/*.tsx"]
+parser: babel-eslint
 parserOptions:
   ecmaFeatures:
-    jsx: true
+    tsx: true
   ecmaVersion: 2018
   sourceType: module
 
-plugins: ['react']
+plugins: ['react', '@typescript-eslint']
 
 settings:
   react:
     version: '16'
+

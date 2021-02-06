@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import * as React from 'react'
 import MovieCardSmall from "./movie-card-small";
 import GenreListItem from "./genre-list-item";
+import {IAppProps} from "../app/app";
 
-const Main = (props) => {
+const Main = (props :IAppProps) => {
   const {genres, films} = props;
 
 
@@ -97,16 +97,6 @@ const Main = (props) => {
     </div>
   </React.Fragment>
   );
-};
-
-Main.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired
-      })
-  ).isRequired
 };
 
 export default Main;

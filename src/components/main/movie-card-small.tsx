@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react'
+import {IFilm} from "../../mocks/films";
 
-const MovieCardSmall = (props) => {
+const MovieCardSmall = (props :IFilm) => {
   const {img, title} = props;
   return (
     <>
@@ -15,11 +15,6 @@ const MovieCardSmall = (props) => {
       </article>
     </>
   );
-};
-
-MovieCardSmall.propTypes = {
-  img: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default MovieCardSmall;

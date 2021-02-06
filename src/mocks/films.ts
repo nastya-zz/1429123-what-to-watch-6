@@ -1,4 +1,9 @@
-export const films = [
+export interface IFilm {
+  title: string,
+  img: string
+}
+
+export const films :IFilm[] = [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
