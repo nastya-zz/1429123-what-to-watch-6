@@ -1,17 +1,46 @@
 import React from 'react';
-import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
+import {Switch, BrowserRouter, Route} from 'react-router-dom'
+
+import Main from '../main/main';
+import Film from '../film/film';
+import Player from '../player/player';
+import AddReview from '../add-review/add-review';
+import MyList from '../my-list/my-list';
+import SignIn from '../sign-in/sign-in';
+import PageNotFound from '../app/page-404';
+
+
 
 const App = (props) => {
-
   const {genres, films} = props;
+
   return (
-    <>
-      <Main
-        genres={genres}
-        films={films}
-      />
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main genres={genres} films={films} />
+        </Route>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route exact path="/mylist">
+          <MyList />
+        </Route>
+        <Route exact path="/films/:id">
+          <Film />
+        </Route>
+        <Route exact path="/player/:id">
+          <Player />
+        </Route>
+        <Route exact path="/add-review">
+          <AddReview />
+        </Route>
+        <Route>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 
