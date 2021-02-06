@@ -33,7 +33,7 @@ const App = (props) => {
         <Route exact path="/player/:id">
           <Player />
         </Route>
-        <Route exact path="/add-review">
+        <Route exact path="/addreview">
           <AddReview />
         </Route>
         <Route>
