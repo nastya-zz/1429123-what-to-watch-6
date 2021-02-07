@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const FilmDetails = (props) => {
+const FilmDetails = () => {
   return (
     <>
       <div className="movie-card__text movie-card__row">

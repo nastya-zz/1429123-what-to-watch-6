@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, BrowserRouter, Route} from 'react-router-dom'
+import {Switch, BrowserRouter, Route} from 'react-router-dom';
 
 import Main from '../main/main';
 import Film from '../film/film';
@@ -9,7 +9,6 @@ import AddReview from '../add-review/add-review';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
-
 
 
 const App = (props) => {

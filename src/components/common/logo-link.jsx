@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import React from "react";
+import PropTypes from "prop-types";
 
 const LogoLink = ({linkClassNames}) => {
   return (
@@ -13,6 +14,10 @@ const LogoLink = ({linkClassNames}) => {
       </div>
     </>
   );
+};
+
+LogoLink.propTypes = {
+  linkClassNames: PropTypes.string,
 };
 
 export default LogoLink;

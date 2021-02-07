@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 
-const SignInMessage = (props) => {
+const SignInMessage = () => {
   return (
     <>
       <div className="sign-in__message">

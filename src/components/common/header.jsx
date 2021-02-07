@@ -1,5 +1,6 @@
 import React from "react";
 import LogoLink from './logo-link';
+import PropTypes from "prop-types";
 
 const Header = ({headerClass, title}) => {
   return (
@@ -19,6 +20,11 @@ const Header = ({headerClass, title}) => {
       </header>
     </>
   );
+};
+
+Header.propTypes = {
+  headerClass: PropTypes.string,
+  title: PropTypes.string.isRequired
 };
 
 
