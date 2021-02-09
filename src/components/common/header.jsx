@@ -24,7 +24,7 @@ const Header = ({headerClass, title}) => {
 
 Header.propTypes = {
   headerClass: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 };
 
 

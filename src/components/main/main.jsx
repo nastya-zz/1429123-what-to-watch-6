@@ -4,6 +4,7 @@ import MovieCardSmall from "./movie-card-small";
 import GenreListItem from "./genre-list-item";
 import Header from "../common/header";
 import Footer from "../common/footer";
+import {shapeFilm} from "../../mocks/films";
 
 const Main = (props) => {
   const {genres, films} = props;
@@ -61,7 +62,7 @@ const Main = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {films.map((film, i) => <MovieCardSmall key={film.img + i} img={film.img} title={film.title} />)}
+          {films.map((film, i) => <MovieCardSmall key={film.poster_image + i} img={film.preview_image} name={film.name} />)}
         </div>
 
         <div className="catalog__more">
@@ -78,10 +79,7 @@ const Main = (props) => {
 Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired
-      })
+      PropTypes.shape(shapeFilm)
   ).isRequired
 };
 

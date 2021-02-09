@@ -10,6 +10,8 @@ import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
 
+import {shapeFilm} from '../../mocks/films';
+
 
 const App = (props) => {
   const {genres, films} = props;
@@ -46,10 +48,7 @@ const App = (props) => {
 App.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired
-      })
+      PropTypes.shape(shapeFilm)
   ).isRequired
 };
 
