@@ -1,16 +1,24 @@
 import React from "react";
+import {useParams, useRouteMatch, Link, Switch, Route} from 'react-router-dom';
 import Header from "../common/header";
 import Footer from "../common/footer";
 import FilmOverview from "./film-overview";
+import FilmDetails from "./film-details";
+import FilmReviews from "./film-reviews";
+import PropTypes from "prop-types";
+import {shapeFilm} from "../../mocks/films";
 
-const Film = () => {
+const Film = ({films}) => {
+  let {id} = useParams();
+  let {path, url} = useRouteMatch();
+  const film = films.find((movie) => movie.id === parseInt(id, 10));
 
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={film.background_image} alt="The Grand Budapest Hotel"/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -19,10 +27,10 @@ const Film = () => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title">{film.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">Drama</span>
-                <span className="movie-card__year">2014</span>
+                <span className="movie-card__genre">{film.genre}</span>
+                <span className="movie-card__year">{film.released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -47,7 +55,7 @@ const Film = () => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              <img src={film.poster_image} alt={film.name} width="218"
                 height="327"/>
             </div>
 
@@ -55,19 +63,27 @@ const Film = () => {
               <nav className="movie-nav movie-card__nav">
                 <ul className="movie-nav__list">
                   <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
+                    <Link to={`${url}/`} className="movie-nav__link">Overview</Link>
                   </li>
                   <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
+                    <Link to={`${url}/details`} className="movie-nav__link">Details</Link>
                   </li>
                   <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
+                    <Link to={`${url}/reviews`} className="movie-nav__link">Reviews</Link>
                   </li>
                 </ul>
               </nav>
-
-
-              <FilmOverview />
+              <Switch>
+                <Route exact path={path}>
+                  <FilmOverview film={film} />
+                </Route>
+                <Route exact path={`${path}/details`}>
+                  <FilmDetails film={film} />
+                </Route>
+                <Route exact path={`${path}/reviews`}>
+                  <FilmReviews film={film} />
+                </Route>
+              </Switch>
             </div>
           </div>
         </div>
@@ -124,5 +140,10 @@ const Film = () => {
   );
 };
 
+Film.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(shapeFilm)
+  ).isRequired
+};
 
 export default Film;
