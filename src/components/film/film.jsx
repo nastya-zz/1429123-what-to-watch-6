@@ -9,8 +9,8 @@ import PropTypes from "prop-types";
 import {shapeFilm} from "../../mocks/films";
 
 const Film = ({films}) => {
-  let {id} = useParams();
-  let {path, url} = useRouteMatch();
+  const {id} = useParams();
+  const {path, url} = useRouteMatch();
   const film = films.find((movie) => movie.id === parseInt(id, 10));
 
   return (
