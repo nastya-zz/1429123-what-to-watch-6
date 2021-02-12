@@ -28,8 +28,8 @@ const App = (props) => {
         <Route exact path="/mylist">
           <MyList />
         </Route>
-        <Route exact path="/films/:id">
-          <Film />
+        <Route path="/films/:id">
+          <Film films={films} />
         </Route>
         <Route exact path="/player/:id">
           <Player />
