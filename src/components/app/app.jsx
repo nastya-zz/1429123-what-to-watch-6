@@ -26,16 +26,16 @@ const App = (props) => {
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyList films={films} />
+        </Route>
+        <Route exact path="/films/:id/review">
+          <AddReview films={films} />
         </Route>
         <Route path="/films/:id">
           <Film films={films} />
         </Route>
-        <Route exact path="/player/:id">
-          <Player />
-        </Route>
-        <Route exact path="/addreview">
-          <AddReview />
+        <Route path="/player/:id">
+          <Player films={films} />
         </Route>
         <Route>
           <PageNotFound />
