@@ -3,12 +3,12 @@ import LogoLink from '../common/logo-link';
 import PropTypes from "prop-types";
 import {shapeFilm} from "../../mocks/films";
 import {Link, useParams} from "react-router-dom";
-import {findFilm} from "../../utils/film";
+import {findFilmById} from "../../utils/film";
 
 
 const AddReview = ({films}) => {
   const {id} = useParams();
-  const film = findFilm(id, films);
+  const film = findFilmById(id, films);
   const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const [form, setForm] = useState({

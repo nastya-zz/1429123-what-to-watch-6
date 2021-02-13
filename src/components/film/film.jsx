@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams, useRouteMatch, Link, Switch, Route} from 'react-router-dom';
+import {useParams, useRouteMatch, Link, Switch, Route, useHistory} from 'react-router-dom';
 import Header from "../common/header";
 import Footer from "../common/footer";
 import FilmOverview from "./film-overview";
@@ -7,11 +7,14 @@ import FilmDetails from "./film-details";
 import FilmReviews from "./film-reviews";
 import PropTypes from "prop-types";
 import {shapeFilm} from "../../mocks/films";
+import {findFilmById} from "../../utils/film";
 
 const Film = ({films}) => {
   const {id} = useParams();
   const {path, url} = useRouteMatch();
-  const film = films.find((movie) => movie.id === parseInt(id, 10));
+  const film = findFilmById(id, films);
+  const history = useHistory();
+
 
   return (
     <>
@@ -34,19 +37,19 @@ const Film = ({films}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button onClick={() => history.push(`/player/${id}`)} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button onClick={() => history.push(`/mylist`)} className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <Link to={`${url}/review`} className="btn movie-card__button">Add review</Link>
               </div>
             </div>
           </div>
