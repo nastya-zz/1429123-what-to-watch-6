@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import PropTypes from "prop-types";
 import MovieCardSmall from "./movie-card-small";
-import {shapeFilm} from "../../mocks/films";
+import {filmsPropTypes} from "../../prop-types/film";
 
 const FilmList = ({films}) => {
   const setActiveFilmId = useState(null)[1];
@@ -16,7 +15,7 @@ const FilmList = ({films}) => {
       {films.map((film, i) => (
         <MovieCardSmall
           onHover={handleHover}
-          key={film.poster_image + i}
+          key={film.posterImage + i}
           film={film}
         />
       ))}
@@ -25,7 +24,7 @@ const FilmList = ({films}) => {
 };
 
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(shapeFilm)).isRequired
+  films: filmsPropTypes
 };
 
 export default FilmList;

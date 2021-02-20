@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {shapeFilm} from "../../mocks/films";
 import {useHistory, useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
+import {filmsPropTypes} from "../../prop-types/film";
 
 const Player = ({films}) => {
   const {id} = useParams();
@@ -51,7 +50,7 @@ const Player = ({films}) => {
 };
 
 Player.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(shapeFilm)).isRequired
+  films: filmsPropTypes
 };
 
 export default Player;

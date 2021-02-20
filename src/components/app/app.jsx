@@ -10,8 +10,7 @@ import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
 
-import {shapeFilm} from '../../mocks/films';
-
+import {filmsPropTypes} from "../../prop-types/film";
 
 const App = (props) => {
   const {genres, films} = props;
@@ -47,9 +46,7 @@ const App = (props) => {
 
 App.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape(shapeFilm)
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default App;

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {shapeFilm} from "../../mocks/films";
 import {Link} from "react-router-dom";
+import {filmPropTypes} from "../../prop-types/film";
 
 
 const MovieCardSmall = (props) => {
   const {film, onHover} = props;
-  const {preview_image: img, id, name} = film;
+  const {previewImage: img, id, name} = film;
 
   return (
     <>
@@ -27,7 +27,7 @@ const MovieCardSmall = (props) => {
 };
 
 MovieCardSmall.propTypes = {
-  film: PropTypes.shape(shapeFilm).isRequired,
+  film: filmPropTypes,
   onHover: PropTypes.func.isRequired
 };
 

@@ -1,9 +1,8 @@
 import React from "react";
 import Header from "../common/header";
 import Footer from "../common/footer";
-import PropTypes from "prop-types";
-import {shapeFilm} from "../../mocks/films";
 import FilmList from "../main/film-list";
+import {filmsPropTypes} from "../../prop-types/film";
 
 
 const MyList = ({films}) => {
@@ -25,9 +24,7 @@ const MyList = ({films}) => {
 };
 
 MyList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(shapeFilm)
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default MyList;

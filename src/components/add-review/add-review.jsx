@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import LogoLink from '../common/logo-link';
 import PropTypes from "prop-types";
-import {shapeFilm} from "../../mocks/films";
 import {Link, useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
+import {filmsPropTypes} from "../../prop-types/film";
 
 
 const AddReview = ({films}) => {
@@ -62,7 +62,7 @@ const AddReview = ({films}) => {
           </header>
 
           <div className="movie-card__poster movie-card__poster--small">
-            <img src={film.poster_image} alt={film.name} width="218"
+            <img src={film.posterImage} alt={film.name} width="218"
               height="327"/>
           </div>
         </div>
@@ -114,9 +114,7 @@ StarCheckbox.propTypes = {
 };
 
 AddReview.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(shapeFilm)
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default AddReview;

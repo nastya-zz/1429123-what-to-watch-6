@@ -4,8 +4,8 @@ import FilmList from "./film-list";
 import GenreListItem from "./genre-list-item";
 import Header from "../common/header";
 import Footer from "../common/footer";
-import {shapeFilm} from "../../mocks/films";
 import {useHistory} from "react-router-dom";
+import {filmsPropTypes} from "../../prop-types/film";
 
 const Main = (props) => {
   const {genres, films} = props;
@@ -78,9 +78,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape(shapeFilm)
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default Main;
