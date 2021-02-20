@@ -1,8 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
 import LogoLink from '../common/logo-link';
+import PropTypes from "prop-types";
+import {Link, useParams} from "react-router-dom";
+import {findFilmById} from "../../utils/film";
+import {filmsPropTypes} from "../../prop-types/film";
 
 
-const AddReview = () => {
+const AddReview = ({films}) => {
+  const {id} = useParams();
+  const film = findFilmById(id, films);
+  const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const [form, setForm] = useState({
+    rating: ``,
+    comment: ``,
+    date: ``
+  });
+
+  const handleChangeForm = (evt) => {
+    evt.preventDefault();
+
+    const nameField = evt.target.name;
+    setForm({...form, [nameField]: evt.target.value, date: new Date().toLocaleString()});
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // todo: implement submit form
+  };
+
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -19,7 +46,7 @@ const AddReview = () => {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                  <Link to={`/films/${id}/`} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -35,50 +62,22 @@ const AddReview = () => {
           </header>
 
           <div className="movie-card__poster movie-card__poster--small">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+            <img src={film.posterImage} alt={film.name} width="218"
               height="327"/>
           </div>
         </div>
 
         <div className="add-review">
-          <form action="#" className="add-review__form">
+          <form action="#" onSubmit={handleSubmit} onInput={handleChangeForm} className="add-review__form">
             <div className="rating">
               <div className="rating__stars">
-                <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-                <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-                <input className="rating__input" id="star-2" type="radio" name="rating" value="2"/>
-                <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" checked/>
-                <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-                <input className="rating__input" id="star-4" type="radio" name="rating" value="4"/>
-                <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-                <input className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
-                <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-                <input className="rating__input" id="star-6" type="radio" name="rating" value="6"/>
-                <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-                <input className="rating__input" id="star-7" type="radio" name="rating" value="7"/>
-                <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-                <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked/>
-                <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-                <input className="rating__input" id="star-9" type="radio" name="rating" value="9"/>
-                <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-                <input className="rating__input" id="star-10" type="radio" name="rating" value="10"/>
-                <label className="rating__label" htmlFor="star-10">Rating 10</label>
+                {RATING_STARS.map((i) => <StarCheckbox key={`i-${i}`} i={i} active={form.rating}/>)}
               </div>
             </div>
 
             <div className="add-review__text">
               <textarea className="add-review__textarea"
-                name="review-text"
+                name="comment"
                 id="review-text"
                 placeholder="Review text" />
               <div className="add-review__submit">
@@ -88,11 +87,34 @@ const AddReview = () => {
             </div>
           </form>
         </div>
-
       </section>
-
     </>
   );
+};
+
+const StarCheckbox = ({i, active}) => {
+  active = parseInt(active, 10);
+  return (
+    <>
+      <input
+        className="rating__input" id={`star-${i}`}
+        type="radio"
+        name="rating"
+        value={i}
+        defaultChecked={active === i}
+      />
+      <label className="rating__label" htmlFor={`star-${i}`}>Rating {i}</label>
+    </>
+  );
+};
+
+StarCheckbox.propTypes = {
+  i: PropTypes.number.isRequired,
+  active: PropTypes.string.isRequired
+};
+
+AddReview.propTypes = {
+  films: filmsPropTypes
 };
 
 export default AddReview;

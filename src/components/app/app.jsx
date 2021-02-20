@@ -10,6 +10,7 @@ import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
 
+import {filmsPropTypes} from "../../prop-types/film";
 
 const App = (props) => {
   const {genres, films} = props;
@@ -24,16 +25,16 @@ const App = (props) => {
           <SignIn />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyList films={films} />
         </Route>
-        <Route exact path="/films/:id">
-          <Film />
+        <Route exact path="/films/:id/review">
+          <AddReview films={films} />
         </Route>
-        <Route exact path="/player/:id">
-          <Player />
+        <Route path="/films/:id">
+          <Film films={films} />
         </Route>
-        <Route exact path="/addreview">
-          <AddReview />
+        <Route path="/player/:id">
+          <Player films={films} />
         </Route>
         <Route>
           <PageNotFound />
@@ -45,12 +46,7 @@ const App = (props) => {
 
 App.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired
-      })
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default App;

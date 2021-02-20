@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import MovieCardSmall from "./movie-card-small";
+import FilmList from "./film-list";
 import GenreListItem from "./genre-list-item";
 import Header from "../common/header";
 import Footer from "../common/footer";
+import {useHistory} from "react-router-dom";
+import {filmsPropTypes} from "../../prop-types/film";
 
 const Main = (props) => {
   const {genres, films} = props;
+  const history = useHistory();
 
 
   return (<React.Fragment>
@@ -34,13 +37,13 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <button onClick={()=>history.push(`/player/1`)} className="btn btn--play movie-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button onClick={()=>history.push(`/mylist`)} className="btn btn--list movie-card__button" type="button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
@@ -60,9 +63,7 @@ const Main = (props) => {
           {genres.map((genre, i) => <GenreListItem key={genre + i} genre={genre} />)}
         </ul>
 
-        <div className="catalog__movies-list">
-          {films.map((film, i) => <MovieCardSmall key={film.img + i} img={film.img} title={film.title} />)}
-        </div>
+        <FilmList films={films} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -77,12 +78,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired
-      })
-  ).isRequired
+  films: filmsPropTypes
 };
 
 export default Main;
