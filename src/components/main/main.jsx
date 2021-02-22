@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import FilmList from "./film-list";
+import FilmList from "../common/film/film-list";
 import GenreListItem from "./genre-list-item";
-import Header from "../common/header";
-import Footer from "../common/footer";
+import Header from "../common/header/header";
+import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
 import {filmsPropTypes} from "../../prop-types/film";
 

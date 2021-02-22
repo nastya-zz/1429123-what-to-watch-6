@@ -1,5 +1,5 @@
 import React from "react";
-import LogoLink from './logo-link';
+import LogoLink from '../logo/logo-link';
 import PropTypes from "prop-types";
 
 const Header = ({headerClass, title}) => {

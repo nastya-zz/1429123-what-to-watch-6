@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import LogoLink from "./logo-link";
+import LogoLink from "../logo/logo-link";
 
 const HeaderGuest = () => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../common/header";
-import Footer from "../common/footer";
-import FilmList from "../main/film-list";
+import Header from "../common/header/header";
+import Footer from "../common/footer/footer";
+import FilmList from "../common/film/film-list";
 import {filmsPropTypes} from "../../prop-types/film";
 
 
