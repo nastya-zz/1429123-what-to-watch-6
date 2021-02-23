@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
+import {PLAYING_DELAY} from "../../../constants/common";
 
 const FilmList = ({films}) => {
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [isPlaying, setPlaying] = useState(false);
 
   const handleHover = (id) => {
+    setPlaying(false);
     setActiveFilmId(id);
   };
 
@@ -16,9 +18,7 @@ const FilmList = ({films}) => {
     if (activeFilmId) {
       timeoutId = setTimeout(() => {
         setPlaying(true);
-      }, 1000);
-    } else {
-      setPlaying(false);
+      }, PLAYING_DELAY);
     }
     return () => {
       if (timeoutId) {
