@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import LogoLink from '../common/logo-link';
+import LogoLink from '../common/logo/logo-link';
 import PropTypes from "prop-types";
 import {Link, useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
@@ -20,8 +20,8 @@ const AddReview = ({films}) => {
   const handleChangeForm = (evt) => {
     evt.preventDefault();
 
-    const nameField = evt.target.name;
-    setForm({...form, [nameField]: evt.target.value, date: new Date().toLocaleString()});
+    const {name, value} = evt.target.name;
+    setForm({...form, [name]: value, date: new Date().toLocaleString()});
   };
 
   const handleSubmit = (e) => {

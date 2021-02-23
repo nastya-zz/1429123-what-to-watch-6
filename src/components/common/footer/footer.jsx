@@ -1,5 +1,5 @@
 import React from "react";
-import LogoLink from "./logo-link";
+import LogoLink from "../logo/logo-link";
 
 const Footer = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../common/footer";
-import LogoLink from '../common/logo-link';
+import Footer from "../common/footer/footer";
+import LogoLink from '../common/logo/logo-link';
 
 
 const SignIn = () => {

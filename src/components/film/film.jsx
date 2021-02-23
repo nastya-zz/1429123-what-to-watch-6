@@ -1,13 +1,13 @@
 import React from "react";
 import {Link, Route, Switch, useHistory, useParams, useRouteMatch} from 'react-router-dom';
-import Header from "../common/header";
-import Footer from "../common/footer";
+import Header from "../common/header/header";
+import Footer from "../common/footer/footer";
 import FilmOverview from "./film-overview";
 import FilmDetails from "./film-details";
 import FilmReviews from "./film-reviews";
 import {findFilmById} from "../../utils/film";
 import {filmsPropTypes} from "../../prop-types/film";
-import FilmList from "../main/film-list";
+import FilmList from "../common/film/film-list";
 
 const Film = ({films}) => {
   const {id} = useParams();

@@ -1,8 +1,8 @@
 import React from "react";
-import LogoLink from './logo-link';
+import LogoLink from '../logo/logo-link';
 import PropTypes from "prop-types";
 
-const Header = ({headerClass, title}) => {
+const Header = ({headerClass, children}) => {
   return (
     <>
       <header className={headerClass}>
@@ -10,7 +10,7 @@ const Header = ({headerClass, title}) => {
           <LogoLink linkClassNames={`logo__link`} />
         </div>
 
-        {title && <h1 className="page-title user-page__title">{title}</h1>}
+        {children}
 
         <div className="user-block">
           <div className="user-block__avatar">
@@ -24,7 +24,7 @@ const Header = ({headerClass, title}) => {
 
 Header.propTypes = {
   headerClass: PropTypes.string,
-  title: PropTypes.string
+  children: PropTypes.node
 };
 
 
