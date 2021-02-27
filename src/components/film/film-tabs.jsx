@@ -17,7 +17,7 @@ const FilmTabs = (props) => {
     setActiveTabIndex(idx);
   };
 
-  const setContent = (i) => {
+  const getTabContent = (i) => {
     switch (tabs[i]) {
       case Tab.OVERVIEW:
         return <FilmOverview film={film} />;
@@ -34,7 +34,7 @@ const FilmTabs = (props) => {
     <div className="movie-card__desc">
       <FilmTabList tabs={tabs} activeTabIndex={activeTabIndex} handleChangeTab={handleChangeTab} />
 
-      {setContent(activeTabIndex)}
+      {getTabContent(activeTabIndex)}
     </div>
 
   );
