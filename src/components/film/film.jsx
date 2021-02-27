@@ -9,7 +9,7 @@ import FilmTabs from "./film-tabs";
 
 const Film = ({films}) => {
   const {id} = useParams();
-  const {path, url} = useRouteMatch();
+  const {url} = useRouteMatch();
   const film = findFilmById(id, films);
   const history = useHistory();
 
