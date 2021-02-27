@@ -1,13 +1,11 @@
 import React from "react";
-import {Link, Route, Switch, useHistory, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, useHistory, useParams, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
-import FilmOverview from "./film-overview";
-import FilmDetails from "./film-details";
-import FilmReviews from "./film-reviews";
 import {findFilmById} from "../../utils/film";
 import {filmsPropTypes} from "../../prop-types/film";
 import FilmList from "../common/film/film-list";
+import FilmTabs from "./film-tabs";
 
 const Film = ({films}) => {
   const {id} = useParams();
@@ -62,32 +60,7 @@ const Film = ({films}) => {
                 height="327"/>
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <Link to={`${url}/`} className="movie-nav__link">Overview</Link>
-                  </li>
-                  <li className="movie-nav__item">
-                    <Link to={`${url}/details`} className="movie-nav__link">Details</Link>
-                  </li>
-                  <li className="movie-nav__item">
-                    <Link to={`${url}/reviews`} className="movie-nav__link">Reviews</Link>
-                  </li>
-                </ul>
-              </nav>
-              <Switch>
-                <Route exact path={path}>
-                  <FilmOverview film={film} />
-                </Route>
-                <Route exact path={`${path}/details`}>
-                  <FilmDetails film={film} />
-                </Route>
-                <Route exact path={`${path}/reviews`}>
-                  <FilmReviews film={film} />
-                </Route>
-              </Switch>
-            </div>
+            <FilmTabs film={film}/>
           </div>
         </div>
       </section>
