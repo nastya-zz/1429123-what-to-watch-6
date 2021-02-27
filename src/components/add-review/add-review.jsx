@@ -14,14 +14,13 @@ const AddReview = ({films}) => {
   const [form, setForm] = useState({
     rating: ``,
     comment: ``,
-    date: ``
   });
 
   const handleChangeForm = (evt) => {
     evt.preventDefault();
 
     const {name, value} = evt.target.name;
-    setForm({...form, [name]: value, date: new Date().toLocaleString()});
+    setForm({...form, [name]: value});
   };
 
   const handleSubmit = (e) => {
