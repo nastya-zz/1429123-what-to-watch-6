@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import FilmList from "../common/film/film-list";
+import MovieCardSmall from "../common/movie-card-small";
 import GenreListItem from "./genre-list-item";
+import Header from "../common/header";
+import Footer from "../common/footer";
+import GenreList from "./GenreList";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
@@ -59,9 +62,7 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <ul className="catalog__genres-list">
-          {genres.map((genre, i) => <GenreListItem key={genre + i} genre={genre} />)}
-        </ul>
+        <GenreList genres={genres}/>
 
         <FilmList films={films} />
 
