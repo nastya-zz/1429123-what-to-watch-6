@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import MovieCardSmall from "../common/movie-card-small";
-import GenreListItem from "./genre-list-item";
-import Header from "../common/header";
-import Footer from "../common/footer";
 import GenreList from "./GenreList";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
 import {filmsPropTypes} from "../../prop-types/film";
+import FilmList from "../common/film/film-list";
 
 const Main = (props) => {
   const {genres, films} = props;

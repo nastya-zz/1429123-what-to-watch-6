@@ -10,7 +10,7 @@ const GenreListItem = (props) => {
   return (
     <>
       <li className={liClass(isActive)}>
-        <a href="#" onClick={() => onChangeGenre(genre)} className="catalog__genres-link">{genre}</a>
+        <a onClick={() => onChangeGenre(genre)} className="catalog__genres-link">{genre}</a>
       </li>
     </>
   );
