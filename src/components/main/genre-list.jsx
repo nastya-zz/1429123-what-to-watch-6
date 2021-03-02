@@ -21,6 +21,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenre(type) {
     dispatch(ActionCreator.setGenre(type));
+    dispatch(ActionCreator.resetMainFilmsCount());
   },
 });
 
@@ -30,5 +31,4 @@ GenreList.propTypes = {
   onChangeGenre: PropTypes.func.isRequired
 };
 
-export {GenreList};
 export default connect(mapStateToProps, mapDispatchToProps)(GenreList);
