@@ -1,10 +1,11 @@
 import {films} from "../mocks/films";
-import {Genre} from "../constants/genres";
 import {ActionType} from "./action";
+
+export const genres = [`All genres`, ...new Set(films.map((film) => film.genre))];
 
 const initialState = {
   films,
-  genre: Genre.ALL
+  genre: genres[0]
 };
 
 

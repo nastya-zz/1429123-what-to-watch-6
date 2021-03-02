@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import GenreList from "./GenreList";
+import GenreList from "./genre-list";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";

@@ -24,5 +24,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+GenreList.propTypes = {
+  genre: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChangeGenre: PropTypes.func.isRequired
+};
+
 export {GenreList};
 export default connect(mapStateToProps, mapDispatchToProps)(GenreList);
