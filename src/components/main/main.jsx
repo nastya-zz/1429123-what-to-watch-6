@@ -6,6 +6,7 @@ import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
 import {filmsPropTypes} from "../../prop-types/film";
 import FilmList from "../common/film/film-list";
+import ShowMoreBtn from "./show-more-btn";
 
 const Main = (props) => {
   const {genres, films} = props;
@@ -63,9 +64,7 @@ const Main = (props) => {
 
         <FilmList films={films} />
 
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
+        <ShowMoreBtn />
       </section>
 
       <Footer />
