@@ -6,6 +6,7 @@ export const genres = [`All genres`, ...new Set(films.map((film) => film.genre))
 
 const initialState = {
   films,
+  genres,
   filteredFilmsByGenre: films,
   genre: genres[0],
   mainPageFilmCount: FilmCount.MAIN_PAGE

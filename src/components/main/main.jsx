@@ -60,9 +60,9 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <GenreList genres={genres}/>
+        <GenreList />
 
-        <FilmList films={films} />
+        <FilmList />
 
         <ShowMoreBtn />
       </section>

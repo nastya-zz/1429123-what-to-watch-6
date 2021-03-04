@@ -16,6 +16,7 @@ const GenreList = (props) => {
 
 const mapStateToProps = (state) => ({
   genre: state.genre,
+  genres: state.genres,
 });
 
 const mapDispatchToProps = (dispatch) => ({
