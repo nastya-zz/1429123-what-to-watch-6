@@ -2,10 +2,13 @@ import React, {useState, useEffect} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
 import {PLAYING_DELAY} from "../../../constants/common";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import PropTypes from "prop-types";
+import {ActionCreator} from "../../../store/action";
 
 const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount}) => {
+  const dispatch = useDispatch();
+
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [isPlaying, setPlaying] = useState(false);
 
@@ -28,6 +31,11 @@ const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount}) => {
       }
     };
   }, [activeFilmId]);
+
+  useEffect(() => {
+    dispatch(ActionCreator.setGenre(`All genres`));
+    dispatch(ActionCreator.resetMainFilmsCount());
+  }, []);
 
   return (
     <div className="catalog__movies-list">
