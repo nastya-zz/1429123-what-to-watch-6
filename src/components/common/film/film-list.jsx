@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
 import {PLAYING_DELAY} from "../../../constants/common";
@@ -6,7 +6,7 @@ import {connect, useDispatch} from "react-redux";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../../store/action";
 
-const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount}) => {
+const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount, genres}) => {
   const dispatch = useDispatch();
 
   const [activeFilmId, setActiveFilmId] = useState(null);
@@ -33,7 +33,7 @@ const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount}) => {
   }, [activeFilmId]);
 
   useEffect(() => {
-    dispatch(ActionCreator.setGenre(`All genres`));
+    dispatch(ActionCreator.setGenre(genres[0]));
     dispatch(ActionCreator.resetMainFilmsCount());
   }, []);
 
@@ -53,12 +53,14 @@ const FilmList = ({filteredFilmsByGenre: films, mainPageFilmCount}) => {
 
 const mapStateToProps = (state) => ({
   mainPageFilmCount: state.mainPageFilmCount,
-  filteredFilmsByGenre: state.filteredFilmsByGenre
+  filteredFilmsByGenre: state.filteredFilmsByGenre,
+  genres: state.genres
 });
 
 FilmList.propTypes = {
   filteredFilmsByGenre: filmsPropTypes,
-  mainPageFilmCount: PropTypes.number.isRequired
+  mainPageFilmCount: PropTypes.number.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export {FilmList};
