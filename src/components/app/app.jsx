@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Switch, BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import Main from '../main/main';
 import Film from '../film/film';
@@ -9,17 +8,26 @@ import AddReview from '../add-review/add-review';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
+import {fetchFilmList} from "../../store/api-actions";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 
-import {filmsPropTypes} from "../../prop-types/film";
+const App = () => {
+  const dispatch = useDispatch();
+  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
+  const films = useSelector((state) => state.films);
 
-const App = (props) => {
-  const {genres, films} = props;
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      dispatch(fetchFilmList());
+    }
+  }, [isFilmsLoaded]);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main genres={genres} films={films} />
+          <Main />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -42,11 +50,6 @@ const App = (props) => {
       </Switch>
     </BrowserRouter>
   );
-};
-
-App.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: filmsPropTypes
 };
 
 export default App;
