@@ -8,6 +8,7 @@ import FilmReviews from "./film-reviews";
 import {findFilmById} from "../../utils/film";
 import {filmsPropTypes} from "../../prop-types/film";
 import FilmList from "../common/film/film-list";
+import {FilmCount} from "../../constants/common";
 
 const Film = ({films}) => {
   const {id} = useParams();
@@ -96,7 +97,7 @@ const Film = ({films}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={films.slice(0, 4)}/>
+          <FilmList films={films.slice(0, FilmCount.MY_LIST)}/>
         </section>
 
         <Footer />

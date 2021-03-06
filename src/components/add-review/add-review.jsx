@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import LogoLink from '../common/logo/logo-link';
 import PropTypes from "prop-types";
 import {Link, useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
 import {filmsPropTypes} from "../../prop-types/film";
+import Header from "../common/header/header";
 
 
 const AddReview = ({films}) => {
@@ -40,9 +40,7 @@ const AddReview = ({films}) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header">
-            <LogoLink linkClassNames={`logo__link`} />
-
+          <Header headerClass={`page-header`}>
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
@@ -53,13 +51,7 @@ const AddReview = ({films}) => {
                 </li>
               </ul>
             </nav>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </div>
-          </header>
+          </Header>
 
           <div className="movie-card__poster movie-card__poster--small">
             <img src={film.posterImage} alt={film.name} width="218"

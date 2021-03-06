@@ -1,14 +1,20 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
-import {filmsPropTypes} from "../../prop-types/film";
 import Catalog from "./catalog";
+import {useSelector} from "react-redux";
+import LoadingScreen from "../common/loading/loading";
 
 const Main = () => {
   const history = useHistory();
+  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
 
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (<React.Fragment>
     <section className="movie-card">
