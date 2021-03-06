@@ -40,7 +40,7 @@ const Catalog = () => {
 
       <GenreList genres={genres} activeGenre={activeGenre} handleChangeGenre={handleChangeGenre} />
 
-      <FilmList films={filteredFilmsByGenre} filmsCount={mainPageFilmCount} />
+      <FilmList films={filteredFilmsByGenre.slice(0, mainPageFilmCount)} />
 
       { filteredFilmsByGenre.length > mainPageFilmCount
         &&
