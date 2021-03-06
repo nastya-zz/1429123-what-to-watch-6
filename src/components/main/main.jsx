@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import GenreList from "./genre-list";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {useHistory} from "react-router-dom";
 import {filmsPropTypes} from "../../prop-types/film";
-import FilmList from "../common/film/film-list";
-import ShowMoreBtn from "./show-more-btn";
+import Catalog from "./catalog";
 
-const Main = (props) => {
-  const {genres, films} = props;
+const Main = () => {
   const history = useHistory();
 
 
@@ -57,15 +54,7 @@ const Main = (props) => {
     </section>
 
     <div className="page-content">
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <GenreList />
-
-        <FilmList />
-
-        <ShowMoreBtn />
-      </section>
+      <Catalog />
 
       <Footer />
     </div>

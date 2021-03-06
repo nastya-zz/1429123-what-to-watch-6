@@ -8,7 +8,7 @@ const initialState = {
   films,
   genres,
   filteredFilmsByGenre: films,
-  genre: genres[0],
+  activeGenre: genres[0],
   mainPageFilmCount: FilmCount.MAIN_PAGE
 };
 
@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_GENRE:
       return {
         ...state,
-        genre: action.payload,
+        activeGenre: action.payload,
         filteredFilmsByGenre: action.payload === `All genres` ? state.films : state.films.filter((film) => film.genre === action.payload)
       };
     case ActionType.SHOW_MORE_FILMS:
