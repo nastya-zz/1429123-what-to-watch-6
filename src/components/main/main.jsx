@@ -62,9 +62,4 @@ const Main = () => {
   );
 };
 
-Main.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: filmsPropTypes
-};
-
 export default Main;
