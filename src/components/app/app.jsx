@@ -1,5 +1,5 @@
-import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Route, Router as BrowserRouter, Switch} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import Film from '../film/film';
@@ -10,7 +10,8 @@ import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
 import {fetchFilmList} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants/common";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,22 +25,14 @@ const App = () => {
   }, [isFilmsLoaded]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
-          <Main />
-        </Route>
-        <Route exact path="/login">
-          <SignIn />
-        </Route>
-        <PrivateRoute exact path={`/mylist`} render={() => <MyList />}/>
-        <PrivateRoute exact path={`/films/:id/review`} render={() => <AddReview />}/>
-        <Route path="/films/:id">
-          <Film films={films} />
-        </Route>
-        <Route path="/player/:id">
-          <Player films={films} />
-        </Route>
+        <Route exact path={AppRoute.MAIN} render={({history}) => <Main history={history} />} />
+        <Route exact path={AppRoute.LOGIN} render={() => <SignIn />} />
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={({history}) => <AddReview history={history} />}/>
+        <Route path={AppRoute.FILM} render={({history}) => <Film films={films} history={history} />} />
+        <Route path={AppRoute.PLAYER} render={({history}) => <Player films={films} history={history} />} />
         <Route>
           <PageNotFound />
         </Route>

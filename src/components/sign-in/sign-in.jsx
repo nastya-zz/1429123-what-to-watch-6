@@ -1,10 +1,8 @@
-import React from "react";
+import React, {useRef} from "react";
 import Footer from "../common/footer/footer";
 import LogoLink from '../common/logo/logo-link';
-import {useRef} from "react";
 import {useDispatch} from "react-redux";
 import {login} from "../../store/api-actions";
-import {useHistory} from "react-router-dom";
 
 
 const SignIn = () => {
@@ -12,7 +10,6 @@ const SignIn = () => {
   const passwordRef = useRef();
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -25,7 +22,6 @@ const SignIn = () => {
     }
 
     dispatch(login({email, password}));
-    history.push(`/`);
   };
 
   return (
