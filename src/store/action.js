@@ -4,7 +4,8 @@ export const ActionType = {
   RESET_MAIN_FILMS_COUNT: `main/resetMainFilmsCount`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   LOAD_FILMS: `data/loadFilms`,
-  SET_GENRES: `data/setGenres`
+  SET_GENRES: `data/setGenres`,
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`,
 };
 
 
@@ -30,5 +31,9 @@ export const ActionCreator = {
   setGenres: (genres) => ({
     type: ActionType.SET_GENRES,
     payload: genres
+  }),
+  redirectToRoute: (route) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: route
   })
 };
