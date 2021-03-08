@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-
+import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import Film from '../film/film';
 import Player from '../player/player';
@@ -32,12 +32,8 @@ const App = () => {
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/mylist">
-          <MyList films={films} />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview films={films} />
-        </Route>
+        <PrivateRoute exact path={`/mylist`} render={() => <MyList />}/>
+        <PrivateRoute exact path={`/films/:id/review`} render={() => <AddReview />}/>
         <Route path="/films/:id">
           <Film films={films} />
         </Route>
