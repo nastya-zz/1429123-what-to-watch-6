@@ -9,6 +9,7 @@ const initialState = {
   activeGenre: DEFAULT_GENRE,
   mainPageFilmCount: FilmCount.MAIN_PAGE,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  user: null,
   isFilmsLoaded: false,
 };
 
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    case ActionType.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
   }
 

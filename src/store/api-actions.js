@@ -21,6 +21,9 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then((response) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.setUser(response.data));
+    })
     .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
