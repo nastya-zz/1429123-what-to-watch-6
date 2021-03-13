@@ -1,12 +1,14 @@
 import {ActionCreator} from "./action";
 import {AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
+import {getAdaptedFilm} from "../utils/adapters";
 
 export const fetchFilmList = () => (dispatch, _getState, api) => (
   api.get(`/films`)
     .then(({data}) => {
       const genres = [DEFAULT_GENRE, ...new Set(data.map((film) => film.genre))];
+      const adaptedFilmList = data.map((film) => getAdaptedFilm(film));
 
-      dispatch(ActionCreator.loadFilms(data));
+      dispatch(ActionCreator.loadFilms(adaptedFilmList));
       dispatch(ActionCreator.setGenres(genres));
     })
 );
