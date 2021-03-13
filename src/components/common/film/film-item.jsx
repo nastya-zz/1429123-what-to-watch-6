@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import {filmPropTypes} from "../../../prop-types/film";
 import VideoPlayer from "./video-player";
+import {AppRoute} from "../../../constants/common";
 
 
 const FilmItem = (props) => {
@@ -26,7 +27,7 @@ const FilmItem = (props) => {
           />
         </div>
         <h3 className="small-movie-card__title">
-          <Link to={`/films/${id}`} className="small-movie-card__link">{name}</Link>
+          <Link to={`${AppRoute.FILM}/${id}`} className="small-movie-card__link">{name}</Link>
         </h3>
       </article>
     </>
