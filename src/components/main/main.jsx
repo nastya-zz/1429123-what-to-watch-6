@@ -2,19 +2,10 @@ import React from 'react';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import Catalog from "./catalog";
-import {useSelector} from "react-redux";
-import LoadingScreen from "../common/loading/loading";
 import {AppRoute} from "../../constants/common";
+import PropTypes from "prop-types";
 
-const Main = () => {
-  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
-
-  if (!isFilmsLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
-
+const Main = ({history}) => {
   return (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -64,6 +55,10 @@ const Main = () => {
     </div>
   </React.Fragment>
   );
+};
+
+Main.propTypes = {
+  history: PropTypes.object.isRequired
 };
 
 export default Main;
