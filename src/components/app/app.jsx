@@ -36,7 +36,7 @@ const App = () => {
         <Route exact path={AppRoute.MAIN} render={({history}) => <Main history={history} />} />
         <Route exact path={AppRoute.LOGIN} render={() => <SignIn />} />
         <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
-        <PrivateRoute exact path={`${AppRoute.FILM}/:id/${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReview history={history} />}/>
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReview history={history} />}/>
         <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <Film history={history}/>} />
         <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <Player history={history} />} />
         <Route>
