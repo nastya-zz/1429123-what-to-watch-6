@@ -18,15 +18,15 @@ const Header = ({headerClass, children}) => {
       {children}
 
       <div className="user-block">
-        <div className="user-block__avatar">
-          {
-            authorizationStatus === AuthorizationStatus.AUTH
-              ?
+        {
+          authorizationStatus === AuthorizationStatus.AUTH
+            ?
+            (<div className="user-block__avatar">
               <img src={user.avatar_url} alt="User avatar" width="63" height="63"/>
-              :
-              <Link to='/login' className="user-block__link">Sign in</Link>
-          }
-        </div>
+            </div>)
+            :
+            <Link to='/login' className="user-block__link">Sign in</Link>
+        }
       </div>
     </header>
   );
