@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, Redirect, useParams, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {findFilmById} from "../../utils/film";
@@ -18,6 +18,9 @@ const Film = ({history}) => {
   const authorizationStatus = useSelector((state) => state.authorizationStatus);
   const film = findFilmById(id, films);
 
+  if (!film) {
+    return <Redirect to={AppRoute.MAIN} />;
+  }
 
   return (
     <>
