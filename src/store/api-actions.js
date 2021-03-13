@@ -13,6 +13,24 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
     })
 );
 
+export const fetchReviewList = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+    .then(({data}) => {
+      dispatch(ActionCreator.loadReviewList(data));
+    })
+);
+
+
+export const fetchFilmById = (id) => (dispatch, _getState, api) =>(
+  api.get(`/films/${id}`)
+    .then(({data}) => {
+      const adaptedFilm = getAdaptedFilm(data);
+
+      dispatch(ActionCreator.loadFilmById(adaptedFilm));
+      dispatch(fetchReviewList(id));
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then((response) => {

@@ -7,6 +7,8 @@ export const ActionType = {
   LOAD_FILMS: `data/loadFilms`,
   SET_GENRES: `data/setGenres`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
+  LOAD_FILM_BY_ID: `film/loadFilmById`,
+  LOAD_REVIEW_LIST: `film/loadReviewList`
 };
 
 
@@ -32,6 +34,14 @@ export const ActionCreator = {
   loadFilms: (films) => ({
     type: ActionType.LOAD_FILMS,
     payload: films
+  }),
+  loadFilmById: (film) => ({
+    type: ActionType.LOAD_FILM_BY_ID,
+    payload: film
+  }),
+  loadReviewList: (reviewList) => ({
+    type: ActionType.LOAD_REVIEW_LIST,
+    payload: reviewList
   }),
   setGenres: (genres) => ({
     type: ActionType.SET_GENRES,

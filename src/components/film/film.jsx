@@ -1,14 +1,16 @@
 import React from "react";
-import {Link, Redirect, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, useParams, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
-import {findFilmById} from "../../utils/film";
 import FilmList from "../common/film/film-list";
 import FilmTabs from "./film-tabs";
 import {AppRoute, AuthorizationStatus, FilmCount} from "../../constants/common";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
+import {useEffect} from "react";
+import {fetchFilmById} from "../../store/api-actions";
+import LoadingScreen from "../loading/loading";
 
 
 const Film = ({history}) => {
@@ -16,10 +18,25 @@ const Film = ({history}) => {
   const {url} = useRouteMatch();
   const films = useSelector((state) => state.films);
   const authorizationStatus = useSelector((state) => state.authorizationStatus);
-  const film = findFilmById(id, films);
+  const film = useSelector((state) => state.selectedFilm);
+  const isFilmsLoaded = useSelector((state) => state.isSelectedFilmLoaded);
 
-  if (!film) {
-    return <Redirect to={AppRoute.MAIN} />;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      dispatch(fetchFilmById(id));
+    }
+  }, [isFilmsLoaded]);
+  useEffect(() => {
+    dispatch(fetchFilmById(id));
+  }, [id]);
+
+
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
   }
 
   return (
