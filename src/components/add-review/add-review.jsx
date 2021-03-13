@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {Link, useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
-import {filmsPropTypes} from "../../prop-types/film";
 import Header from "../common/header/header";
+import {useSelector} from "react-redux";
 
 
-const AddReview = ({films}) => {
+const AddReview = () => {
   const {id} = useParams();
+  const films = useSelector((state) => state.films);
   const film = findFilmById(id, films);
   const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -104,8 +105,5 @@ StarCheckbox.propTypes = {
   active: PropTypes.string.isRequired
 };
 
-AddReview.propTypes = {
-  films: filmsPropTypes
-};
 
 export default AddReview;
