@@ -19,3 +19,9 @@ export const AppRoute = {
   MY_LIST: `/my-list`,
   PLAYER: `/player`,
 };
+
+export const Tab = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`
+};
