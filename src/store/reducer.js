@@ -1,25 +1,36 @@
-import {films} from "../mocks/films";
 import {ActionType} from "./action";
-import {FilmCount} from "../constants/common";
+import {FilmCount, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
 
-export const genres = [`All genres`, ...new Set(films.map((film) => film.genre))];
 
 const initialState = {
-  films,
-  genres,
-  filteredFilmsByGenre: films,
-  activeGenre: genres[0],
-  mainPageFilmCount: FilmCount.MAIN_PAGE
+  films: [],
+  genres: [DEFAULT_GENRE],
+  filteredFilmsByGenre: [],
+  activeGenre: DEFAULT_GENRE,
+  mainPageFilmCount: FilmCount.MAIN_PAGE,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  isFilmsLoaded: false,
 };
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: action.payload,
+        isFilmsLoaded: true
+      };
+    case ActionType.SET_GENRES:
+      return {
+        ...state,
+        genres: action.payload
+      };
     case ActionType.SET_GENRE:
       return {
         ...state,
         activeGenre: action.payload,
-        filteredFilmsByGenre: action.payload === `All genres` ? state.films : state.films.filter((film) => film.genre === action.payload)
+        filteredFilmsByGenre: action.payload === DEFAULT_GENRE ? state.films : state.films.filter((film) => film.genre === action.payload)
       };
     case ActionType.SHOW_MORE_FILMS:
       return {
@@ -30,6 +41,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         mainPageFilmCount: FilmCount.MAIN_PAGE
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
       };
   }
 

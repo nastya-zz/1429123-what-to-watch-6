@@ -2,9 +2,8 @@ import React, {useEffect, useState} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
 import {PLAYING_DELAY} from "../../../constants/common";
-import PropTypes from "prop-types";
 
-const FilmList = ({films, filmsCount}) => {
+const FilmList = ({films}) => {
 
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [isPlaying, setPlaying] = useState(false);
@@ -31,11 +30,11 @@ const FilmList = ({films, filmsCount}) => {
 
   return (
     <div className="catalog__movies-list">
-      {films.slice(0, filmsCount).map((film, i) => (
+      {films.map((film, i) => (
         <FilmItem
           handleHover={handleHover}
           isPlaying={isPlaying && (activeFilmId === film.id)}
-          key={film.posterImage + i}
+          key={i}
           film={film}
         />
       ))}
@@ -46,7 +45,6 @@ const FilmList = ({films, filmsCount}) => {
 
 FilmList.propTypes = {
   films: filmsPropTypes,
-  filmsCount: PropTypes.number.isRequired,
 };
 
 export default FilmList;

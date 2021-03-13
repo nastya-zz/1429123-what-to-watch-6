@@ -1,31 +1,15 @@
 import React from "react";
-import LogoLink from '../logo/logo-link';
-import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
+import {AuthorizationStatus} from "../../../constants/common";
+import HeaderAuth from "./header-auth";
+import HeaderGuest from "./header-guest";
 
-const Header = ({headerClass, children}) => {
+const Header = (props) => {
+  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+
   return (
-    <>
-      <header className={headerClass}>
-        <div className="logo">
-          <LogoLink linkClassNames={`logo__link`} />
-        </div>
-
-        {children}
-
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
-      </header>
-    </>
+    authorizationStatus === AuthorizationStatus.AUTH ? <HeaderAuth {...props} /> : <HeaderGuest {...props}/>
   );
 };
-
-Header.propTypes = {
-  headerClass: PropTypes.string,
-  children: PropTypes.node
-};
-
 
 export default Header;
