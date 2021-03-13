@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 
 const SignInMessage = ({message}) => {
@@ -9,6 +10,10 @@ const SignInMessage = ({message}) => {
       </div>
     </>
   );
+};
+
+SignInMessage.propTypes = {
+  message: PropTypes.string.isRequired
 };
 
 export default SignInMessage;

@@ -2,10 +2,8 @@ import React from 'react';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import Catalog from "./catalog";
-import {AppRoute} from "../../constants/common";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
-import {Link} from "react-router-dom";
 
 const Main = ({history}) => {
   return (<React.Fragment>
