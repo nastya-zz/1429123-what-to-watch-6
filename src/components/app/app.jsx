@@ -12,11 +12,11 @@ import {fetchFilmList} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants/common";
+import LoadingScreen from "../common/loading/loading";
 
 const App = () => {
   const dispatch = useDispatch();
   const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
-  const films = useSelector((state) => state.films);
 
   useEffect(() => {
     if (!isFilmsLoaded) {
@@ -24,15 +24,21 @@ const App = () => {
     }
   }, [isFilmsLoaded]);
 
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN} render={({history}) => <Main history={history} />} />
         <Route exact path={AppRoute.LOGIN} render={() => <SignIn />} />
         <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
-        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={({history}) => <AddReview history={history} />}/>
-        <Route path={AppRoute.FILM} render={({history}) => <Film films={films} history={history} />} />
-        <Route path={AppRoute.PLAYER} render={({history}) => <Player films={films} history={history} />} />
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id/${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReview history={history} />}/>
+        <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <Film history={history}/>} />
+        <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <Player history={history} />} />
         <Route>
           <PageNotFound />
         </Route>
