@@ -18,6 +18,7 @@ const VideoPlayer = (props) => {
 
   return (
     <video
+      crossOrigin="anonymous"
       ref={videoRef}
       src={previewVideoLink}
       className="player__video"

@@ -1,5 +1,5 @@
 import React from "react";
-import {useHistory, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
 import {filmsPropTypes} from "../../prop-types/film";
 
@@ -7,7 +7,6 @@ const Player = ({films}) => {
   const {id} = useParams();
   const film = findFilmById(id, films);
   const {preview_image: previewImage, preview_video_link: previewVideoLink} = film;
-  const history = useHistory();
 
 
   return (

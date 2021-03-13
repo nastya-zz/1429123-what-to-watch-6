@@ -1,17 +1,11 @@
 import React from 'react';
-import PropTypes from "prop-types";
-import FilmList from "../common/film/film-list";
-import GenreListItem from "./genre-list-item";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
-import {useHistory} from "react-router-dom";
-import {filmsPropTypes} from "../../prop-types/film";
+import Catalog from "./catalog";
+import {AppRoute} from "../../constants/common";
+import PropTypes from "prop-types";
 
-const Main = (props) => {
-  const {genres, films} = props;
-  const history = useHistory();
-
-
+const Main = ({history}) => {
   return (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -37,13 +31,13 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button onClick={()=>history.push(`/player/1`)} className="btn btn--play movie-card__button" type="button">
+              <button onClick={()=>history.push(`${AppRoute.PLAYER}/1`)} className="btn btn--play movie-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button onClick={()=>history.push(`/mylist`)} className="btn btn--list movie-card__button" type="button">
+              <button onClick={()=>history.push(`${AppRoute.MY_LIST}`)} className="btn btn--list movie-card__button" type="button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
@@ -56,20 +50,7 @@ const Main = (props) => {
     </section>
 
     <div className="page-content">
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <ul className="catalog__genres-list">
-          {genres.map((genre, i) => <GenreListItem key={genre + i} genre={genre} />)}
-        </ul>
-
-        <FilmList films={films} />
-
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
-      </section>
-
+      <Catalog />
       <Footer />
     </div>
   </React.Fragment>
@@ -77,8 +58,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: filmsPropTypes
+  history: PropTypes.object.isRequired
 };
 
 export default Main;

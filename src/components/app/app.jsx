@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Switch, BrowserRouter, Route} from 'react-router-dom';
-
+import React, {useEffect} from 'react';
+import {Route, Router as BrowserRouter, Switch} from 'react-router-dom';
+import PrivateRoute from '../private-route/private-route';
 import Main from '../main/main';
 import Film from '../film/film';
 import Player from '../player/player';
@@ -9,44 +8,43 @@ import AddReview from '../add-review/add-review';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
+import {fetchFilmList} from "../../store/api-actions";
+import {useDispatch, useSelector} from "react-redux";
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants/common";
+import LoadingScreen from "../common/loading/loading";
 
-import {filmsPropTypes} from "../../prop-types/film";
+const App = () => {
+  const dispatch = useDispatch();
+  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
 
-const App = (props) => {
-  const {genres, films} = props;
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      dispatch(fetchFilmList());
+    }
+  }, [isFilmsLoaded]);
+
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
-          <Main genres={genres} films={films} />
-        </Route>
-        <Route exact path="/login">
-          <SignIn />
-        </Route>
-        <Route exact path="/mylist">
-          <MyList films={films} />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview films={films} />
-        </Route>
-        <Route path="/films/:id">
-          <Film films={films} />
-        </Route>
-        <Route path="/player/:id">
-          <Player films={films} />
-        </Route>
+        <Route exact path={AppRoute.MAIN} render={({history}) => <Main history={history} />} />
+        <Route exact path={AppRoute.LOGIN} render={() => <SignIn />} />
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id/${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReview history={history} />}/>
+        <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <Film history={history}/>} />
+        <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <Player history={history} />} />
         <Route>
           <PageNotFound />
         </Route>
       </Switch>
     </BrowserRouter>
   );
-};
-
-App.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  films: filmsPropTypes
 };
 
 export default App;

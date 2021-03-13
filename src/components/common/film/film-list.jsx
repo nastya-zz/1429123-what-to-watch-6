@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
 import {PLAYING_DELAY} from "../../../constants/common";
 
 const FilmList = ({films}) => {
+
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [isPlaying, setPlaying] = useState(false);
 
@@ -33,7 +34,7 @@ const FilmList = ({films}) => {
         <FilmItem
           handleHover={handleHover}
           isPlaying={isPlaying && (activeFilmId === film.id)}
-          key={film.posterImage + i}
+          key={i}
           film={film}
         />
       ))}
@@ -41,8 +42,9 @@ const FilmList = ({films}) => {
   );
 };
 
+
 FilmList.propTypes = {
-  films: filmsPropTypes
+  films: filmsPropTypes,
 };
 
 export default FilmList;
