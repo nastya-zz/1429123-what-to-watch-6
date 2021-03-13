@@ -3,25 +3,34 @@ import Footer from "../common/footer/footer";
 import LogoLink from '../common/logo/logo-link';
 import {useDispatch} from "react-redux";
 import {login} from "../../store/api-actions";
+import SignInMessage from "./sign-in-message";
+import {useState} from "react";
 
 
 const SignIn = () => {
+  const [textError, setTextError] = useState(``);
   const loginRef = useRef();
   const passwordRef = useRef();
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
 
-    const email = loginRef.current.value;
-    const password = passwordRef.current.value;
+    const email = loginRef.current.value.trim();
+    const password = passwordRef.current.value.trim();
 
     if (!email || !password) {
+      setTextError(`Please enter a valid email address and password`);
       return;
     }
 
-    dispatch(login({email, password}));
+    try {
+      await dispatch(login({email, password}));
+    } catch (e) {
+      setTextError(`Please enter a valid email address`);
+      loginRef.current.focus();
+    }
   };
 
   return (
@@ -35,14 +44,16 @@ const SignIn = () => {
 
         <div className="sign-in user-page__content">
           <form className="sign-in__form" onSubmit={handleSubmit}>
+            {textError && <SignInMessage message={textError}/>}
+
             <div className="sign-in__fields">
               <div className="sign-in__field">
-                <input ref={loginRef} required className="sign-in__input" type="email" placeholder="Email address" name="user-email"
+                <input ref={loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email"
                   id="user-email"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
               <div className="sign-in__field">
-                <input ref={passwordRef} required className="sign-in__input" type="password" placeholder="Password" name="user-password"
+                <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password"
                   id="user-password"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>

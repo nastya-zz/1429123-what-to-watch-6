@@ -6,7 +6,7 @@ const shapeFilm = {
   posterImage: PropTypes.string.isRequired,
   previewImage: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string,
   videoLink: PropTypes.string.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

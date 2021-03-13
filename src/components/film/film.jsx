@@ -1,19 +1,21 @@
 import React from "react";
-import {Link, useHistory, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, useParams, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {findFilmById} from "../../utils/film";
 import FilmList from "../common/film/film-list";
 import FilmTabs from "./film-tabs";
-import {AppRoute, FilmCount} from "../../constants/common";
+import {AppRoute, AuthorizationStatus, FilmCount} from "../../constants/common";
 import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
+import MovieCardButtons from "../common/film/movie-card-buttons";
 
 
 const Film = ({history}) => {
   const {id} = useParams();
-  const {path} = useRouteMatch();
+  const {url} = useRouteMatch();
   const films = useSelector((state) => state.films);
+  const authorizationStatus = useSelector((state) => state.authorizationStatus);
   const film = findFilmById(id, films);
 
 
@@ -37,21 +39,9 @@ const Film = ({history}) => {
                 <span className="movie-card__year">{film.released}</span>
               </p>
 
-              <div className="movie-card__buttons">
-                <button onClick={() => history.push(`${AppRoute.PLAYER}/${id}`)} className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button onClick={() => history.push(`${AppRoute.MY_LIST}`)} className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <Link to={`${url}/review`} className="btn movie-card__button">Add review</Link>
-              </div>
+              <MovieCardButtons filmId={id} history={history}>
+                {authorizationStatus === AuthorizationStatus.AUTH && <Link to={`${url}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>}
+              </MovieCardButtons>
             </div>
           </div>
         </div>
@@ -72,7 +62,7 @@ const Film = ({history}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={films.slice(0, FilmCount.MY_LIST)}/>
+          <FilmList films={films.slice(0, FilmCount.MORE_LIKE)}/>
         </section>
 
         <Footer />

@@ -2,8 +2,8 @@ import React from 'react';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import Catalog from "./catalog";
-import {AppRoute} from "../../constants/common";
 import PropTypes from "prop-types";
+import MovieCardButtons from "../common/film/movie-card-buttons";
 
 const Main = ({history}) => {
   return (<React.Fragment>
@@ -30,20 +30,7 @@ const Main = ({history}) => {
               <span className="movie-card__year">2014</span>
             </p>
 
-            <div className="movie-card__buttons">
-              <button onClick={()=>history.push(`${AppRoute.PLAYER}/1`)} className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
-                </svg>
-                <span>Play</span>
-              </button>
-              <button onClick={()=>history.push(`${AppRoute.MY_LIST}`)} className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
-            </div>
+            <MovieCardButtons filmId={1} history={history} />
           </div>
         </div>
       </div>

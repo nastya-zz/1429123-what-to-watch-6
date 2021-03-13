@@ -3,7 +3,7 @@ export const DEFAULT_GENRE = `All genres`;
 export const GENRE_MAIN_COUNT = 9;
 export const FilmCount = {
   MAIN_PAGE: 8,
-  MY_LIST: 4
+  MORE_LIKE: 4
 };
 
 export const AuthorizationStatus = {

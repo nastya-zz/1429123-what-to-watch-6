@@ -3,6 +3,7 @@ export const ActionType = {
   SHOW_MORE_FILMS: `main/showMoreFilms`,
   RESET_MAIN_FILMS_COUNT: `main/resetMainFilmsCount`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
+  SET_USER: `user/setUser`,
   LOAD_FILMS: `data/loadFilms`,
   SET_GENRES: `data/setGenres`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
@@ -23,6 +24,10 @@ export const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
+  }),
+  setUser: (user) => ({
+    type: ActionType.SET_USER,
+    payload: user,
   }),
   loadFilms: (films) => ({
     type: ActionType.LOAD_FILMS,
