@@ -1,11 +1,11 @@
 import React from "react";
 
 
-const SignInMessage = () => {
+const SignInMessage = ({message}) => {
   return (
     <>
       <div className="sign-in__message">
-        <p>Please enter a valid email address</p>
+        <p>{message}</p>
       </div>
     </>
   );
