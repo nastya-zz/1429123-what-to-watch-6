@@ -1,12 +1,14 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
-import {filmsPropTypes} from "../../prop-types/film";
+import {useSelector} from "react-redux";
+import PropTypes from "prop-types";
 
-const Player = ({films}) => {
+const Player = ({history}) => {
   const {id} = useParams();
+  const films = useSelector((state) => state.films);
   const film = findFilmById(id, films);
-  const {preview_image: previewImage, preview_video_link: previewVideoLink} = film;
+  const {previewImage, previewVideoLink} = film;
 
 
   return (
@@ -49,7 +51,7 @@ const Player = ({films}) => {
 };
 
 Player.propTypes = {
-  films: filmsPropTypes
+  history: PropTypes.object.isRequired
 };
 
 export default Player;

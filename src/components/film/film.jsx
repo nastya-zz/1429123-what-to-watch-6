@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useHistory, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, useParams, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import {findFilmById} from "../../utils/film";
@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 
 const Film = ({history}) => {
   const {id} = useParams();
-  const {path} = useRouteMatch();
+  const {url} = useRouteMatch();
   const films = useSelector((state) => state.films);
   const film = findFilmById(id, films);
 
