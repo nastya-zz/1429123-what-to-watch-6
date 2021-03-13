@@ -2,10 +2,12 @@ import React from "react";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import FilmList from "../common/film/film-list";
-import {filmsPropTypes} from "../../prop-types/film";
+import {useSelector} from "react-redux";
 
 
-const MyList = ({films}) => {
+const MyList = () => {
+  const films = useSelector((state) => state.films);
+
   return (
     <>
       <div className="user-page">
@@ -23,10 +25,6 @@ const MyList = ({films}) => {
       </div>
     </>
   );
-};
-
-MyList.propTypes = {
-  films: filmsPropTypes
 };
 
 export default MyList;

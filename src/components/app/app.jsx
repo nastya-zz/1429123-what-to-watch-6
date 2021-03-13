@@ -12,7 +12,7 @@ import {fetchFilmList} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants/common";
-import LoadingScreen from "../common/loading/loading";
+import LoadingScreen from "../loading/loading";
 
 const App = () => {
   const dispatch = useDispatch();
