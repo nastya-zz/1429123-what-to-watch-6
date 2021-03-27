@@ -13,6 +13,10 @@ import {useDispatch, useSelector} from "react-redux";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants/common";
 import LoadingScreen from "../loading/loading";
+import withSelectedFilm from "../hocs/withSelectedFilm";
+
+const FilmWrapped = withSelectedFilm(Film);
+const AddReviewWrapped = withSelectedFilm(AddReview);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,8 +40,8 @@ const App = () => {
         <Route exact path={AppRoute.MAIN} render={({history}) => <Main history={history} />} />
         <Route exact path={AppRoute.LOGIN} render={() => <SignIn />} />
         <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
-        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReview history={history} />}/>
-        <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <Film history={history}/>} />
+        <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReviewWrapped history={history} />}/>
+        <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <FilmWrapped history={history}/>} />
         <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <Player history={history} />} />
         <Route>
           <PageNotFound />
