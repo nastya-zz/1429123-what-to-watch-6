@@ -1,30 +1,27 @@
 import React from "react";
-import {Link, useParams, useRouteMatch} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
-import {findFilmById} from "../../utils/film";
 import FilmList from "../common/film/film-list";
 import FilmTabs from "./film-tabs";
 import {AppRoute, AuthorizationStatus, FilmCount} from "../../constants/common";
 import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
+import {filmPropTypes} from "../../prop-types/film";
 
 
-const Film = ({history}) => {
-  const {id} = useParams();
+const Film = ({history, film, id}) => {
   const {url} = useRouteMatch();
   const films = useSelector((state) => state.films);
   const authorizationStatus = useSelector((state) => state.authorizationStatus);
-  const film = findFilmById(id, films);
-
 
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={film.backgroundImage} alt="The Grand Budapest Hotel"/>
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -72,7 +69,9 @@ const Film = ({history}) => {
 };
 
 Film.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  film: filmPropTypes,
+  id: PropTypes.string,
 };
 
 export default Film;

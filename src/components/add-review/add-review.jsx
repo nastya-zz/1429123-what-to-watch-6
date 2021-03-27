@@ -1,34 +1,60 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {Link, useParams} from "react-router-dom";
-import {findFilmById} from "../../utils/film";
+import {Link} from "react-router-dom";
 import Header from "../common/header/header";
-import {useSelector} from "react-redux";
+import {filmPropTypes} from "../../prop-types/film";
+import {useDispatch, useSelector} from "react-redux";
+import {postFilmReview} from "../../store/api-actions";
 
+const CommentLength = {
+  MIN: 50,
+  MAX: 400
+};
 
-const AddReview = () => {
-  const {id} = useParams();
-  const films = useSelector((state) => state.films);
-  const film = findFilmById(id, films);
+const AddReview = ({film, id}) => {
+  const dispatch = useDispatch();
   const RATING_STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const [form, setForm] = useState({
-    rating: ``,
+    rating: `10`,
     comment: ``,
   });
+
+  const [isSubmitBlocked, setSubmitBlocked] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(``);
+  const isReviewUploaded = useSelector((state) => state.isReviewUploaded);
 
   const handleChangeForm = (evt) => {
     evt.preventDefault();
 
-    const {name, value} = evt.target.name;
+    const {name, value} = evt.target;
     setForm({...form, [name]: value});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // todo: implement submit form
+    const review = {
+      comment: form.comment,
+      rating: +form.rating
+    };
+
+    await dispatch(postFilmReview(id, review));
   };
+
+  useEffect(() => {
+    const isValidLength = form.comment.length >= CommentLength.MIN && form.comment.length <= CommentLength.MAX;
+
+    if (isValidLength && form.rating) {
+      setSubmitBlocked(false);
+    } else {
+      setSubmitBlocked(true);
+    }
+  }, [form.comment, form.rating]);
+
+  useEffect(() => {
+    setErrorMessage(`Sorry, something went wrong. Please try again later`);
+  }, [isReviewUploaded]);
 
   return (
     <>
@@ -60,7 +86,9 @@ const AddReview = () => {
         </div>
 
         <div className="add-review">
-          <form action="#" onSubmit={handleSubmit} onInput={handleChangeForm} className="add-review__form">
+          <form onSubmit={handleSubmit} onInput={handleChangeForm} className="add-review__form">
+            {errorMessage && <p>{errorMessage}</p>}
+
             <div className="rating">
               <div className="rating__stars">
                 {RATING_STARS.map((i) => <StarCheckbox key={`i-${i}`} i={i} active={form.rating}/>)}
@@ -73,7 +101,7 @@ const AddReview = () => {
                 id="review-text"
                 placeholder="Review text" />
               <div className="add-review__submit">
-                <button className="add-review__btn" type="submit">Post</button>
+                <button disabled={isSubmitBlocked} className="add-review__btn" type="submit">Post</button>
               </div>
 
             </div>
@@ -103,6 +131,10 @@ const StarCheckbox = ({i, active}) => {
 StarCheckbox.propTypes = {
   i: PropTypes.number.isRequired,
   active: PropTypes.string.isRequired
+};
+AddReview.propTypes = {
+  film: filmPropTypes,
+  id: PropTypes.string,
 };
 
 

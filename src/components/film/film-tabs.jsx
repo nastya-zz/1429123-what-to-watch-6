@@ -19,8 +19,6 @@ const FilmTabs = (props) => {
 
   const getTabContent = (i) => {
     switch (tabs[i]) {
-      case Tab.OVERVIEW:
-        return <FilmOverview film={film} />;
       case Tab.DETAILS:
         return <FilmDetails film={film} />;
       case Tab.REVIEWS:

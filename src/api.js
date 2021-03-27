@@ -4,10 +4,11 @@ const BACKEND_URL = `https://6.react.pages.academy/wtw`;
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
-  UNAUTHORIZED: 401
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404
 };
 
-export const createAPI = (onUnauthorized) => {
+export const createAPI = (onUnauthorized, notFound) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -24,6 +25,10 @@ export const createAPI = (onUnauthorized) => {
 
       // Бросаем ошибку, потому что нам важно прервать цепочку промисов после запроса авторизации.
       // Запрос авторизации — это особый случай и важно дать понять приложению, что запрос был неудачным.
+      throw err;
+    } else if (response.status === HttpCode.NOT_FOUND) {
+      notFound();
+
       throw err;
     }
 

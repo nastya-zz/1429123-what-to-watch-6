@@ -7,6 +7,10 @@ export const ActionType = {
   LOAD_FILMS: `data/loadFilms`,
   SET_GENRES: `data/setGenres`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
+  LOAD_FILM_BY_ID: `film/loadFilmById`,
+  IS_SELECTED_FILM_BY_ID_LOADEE: `film/isSelectedFilmByIdLoaded`,
+  LOAD_REVIEW_LIST: `film/loadReviewList`,
+  IS_REVIEW_UPLOADED: `add-review/isReviewUploaded`
 };
 
 
@@ -33,6 +37,14 @@ export const ActionCreator = {
     type: ActionType.LOAD_FILMS,
     payload: films
   }),
+  loadFilmById: (film) => ({
+    type: ActionType.LOAD_FILM_BY_ID,
+    payload: film
+  }),
+  loadReviewList: (reviewList) => ({
+    type: ActionType.LOAD_REVIEW_LIST,
+    payload: reviewList
+  }),
   setGenres: (genres) => ({
     type: ActionType.SET_GENRES,
     payload: genres
@@ -40,5 +52,13 @@ export const ActionCreator = {
   redirectToRoute: (route) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: route
+  }),
+  isReviewUploaded: (flag) => ({
+    type: ActionType.IS_REVIEW_UPLOADED,
+    payload: flag
+  }),
+  isSelectedFilmByIdLoaded: (flag) => ({
+    type: ActionType.IS_SELECTED_FILM_BY_ID_LOADEE,
+    payload: flag
   })
 };
