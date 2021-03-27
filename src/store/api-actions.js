@@ -1,5 +1,5 @@
 import {ActionCreator} from "./action";
-import {AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
+import {AppRoute, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
 import {getAdaptedFilm} from "../utils/adapters";
 
 export const fetchFilmList = () => (dispatch, _getState, api) => (
@@ -20,8 +20,7 @@ export const fetchReviewList = (id) => (dispatch, _getState, api) => (
     })
 );
 
-
-export const fetchFilmById = (id) => (dispatch, _getState, api) =>(
+export const fetchFilmById = (id) => (dispatch, _getState, api) => (
   api.get(`/films/${id}`)
     .then(({data}) => {
       const adaptedFilm = getAdaptedFilm(data);
@@ -30,6 +29,19 @@ export const fetchFilmById = (id) => (dispatch, _getState, api) =>(
       dispatch(fetchReviewList(id));
     })
 );
+
+export const postFilmReview = (id, {comment, rating}) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.isReviewUploaded(false));
+
+  return api.post(`/comments/${id}`, {comment})
+    .then(() => {
+      dispatch(ActionCreator.isReviewUploaded(true));
+      dispatch(ActionCreator.redirectToRoute(`${AppRoute.FILM}/${id}`));
+      return Promise.resolve();
+    }).catch(() => {
+      dispatch(ActionCreator.isReviewUploaded(true));
+    });
+};
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
@@ -44,8 +56,8 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
     .then((response) => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.setUser(response.data));
+      dispatch(ActionCreator.redirectToRoute(`/`));
     })
-    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
     .catch((error) => {
       throw error;
     })

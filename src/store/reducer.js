@@ -11,6 +11,10 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   user: null,
   isFilmsLoaded: false,
+  selectedFilm: null,
+  selectedFilmReviewList: [],
+  isSelectedFilmLoaded: false,
+  isReviewUploaded: true,
 };
 
 
@@ -21,6 +25,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         films: action.payload,
         isFilmsLoaded: true
+      };
+    case ActionType.LOAD_FILM_BY_ID:
+      return {
+        ...state,
+        selectedFilm: action.payload,
+        isSelectedFilmLoaded: true
+      };
+    case ActionType.LOAD_REVIEW_LIST:
+      return {
+        ...state,
+        selectedFilmReviewList: action.payload,
       };
     case ActionType.SET_GENRES:
       return {
@@ -52,6 +67,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case ActionType.IS_REVIEW_UPLOADED:
+      return {
+        ...state,
+        isFilmsLoaded: action.payload,
+      };
+    case ActionType.IS_SELECTED_FILM_BY_ID_LOADEE:
+      return {
+        ...state,
+        isSelectedFilmLoaded: action.payload,
       };
   }
 
