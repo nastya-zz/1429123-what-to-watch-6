@@ -26,7 +26,7 @@ const MovieCardButtons = ({children, filmId, history}) => {
 
 MovieCardButtons.propTypes = {
   children: PropTypes.node,
-  filmId: PropTypes.number,
+  filmId: PropTypes.string,
   history: PropTypes.object
 };
 

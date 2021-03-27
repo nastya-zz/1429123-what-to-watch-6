@@ -30,7 +30,7 @@ const Main = ({history}) => {
               <span className="movie-card__year">2014</span>
             </p>
 
-            <MovieCardButtons filmId={1} history={history} />
+            <MovieCardButtons filmId={`1`} history={history} />
           </div>
         </div>
       </div>

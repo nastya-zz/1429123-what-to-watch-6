@@ -9,7 +9,7 @@ const FilmReviews = () => {
     <>
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {
+          { commentList.length ?
             commentList.map((comment) => (
               <div className="review" key={comment.id}>
                 <blockquote className="review__quote">
@@ -24,6 +24,8 @@ const FilmReviews = () => {
                 <div className="review__rating">{comment.rating}</div>
               </div>
             ))
+            :
+            `No comments.`
           }
         </div>
       </div>
