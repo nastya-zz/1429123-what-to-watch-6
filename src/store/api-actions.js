@@ -1,4 +1,10 @@
-import {ActionCreator} from "./action";
+import {
+  loadFilmById, loadFilms,
+  loadReviewList,
+  redirectToRoute,
+  requireAuthorization, setGenres,
+  setReviewUploaded, setUser,
+} from "./action";
 import {AppRoute, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
 import {getAdaptedFilm} from "../utils/adapters";
 
@@ -8,15 +14,15 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
       const genres = [DEFAULT_GENRE, ...new Set(data.map((film) => film.genre))];
       const adaptedFilmList = data.map((film) => getAdaptedFilm(film));
 
-      dispatch(ActionCreator.loadFilms(adaptedFilmList));
-      dispatch(ActionCreator.setGenres(genres));
+      dispatch(loadFilms(adaptedFilmList));
+      dispatch(setGenres(genres));
     })
 );
 
 export const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
     .then(({data}) => {
-      dispatch(ActionCreator.loadReviewList(data));
+      dispatch(loadReviewList(data));
     })
 );
 
@@ -25,38 +31,38 @@ export const fetchFilmById = (id) => (dispatch, _getState, api) => (
     .then(({data}) => {
       const adaptedFilm = getAdaptedFilm(data);
 
-      dispatch(ActionCreator.loadFilmById(adaptedFilm));
+      dispatch(loadFilmById(adaptedFilm));
       dispatch(fetchReviewList(id));
     })
 );
 
 export const postFilmReview = (id, {comment, rating}) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.isReviewUploaded(false));
+  dispatch(setReviewUploaded(false));
 
-  return api.post(`/comments/${id}`, {comment})
+  return api.post(`/comments/${id}`, {comment, rating})
     .then(() => {
-      dispatch(ActionCreator.isReviewUploaded(true));
-      dispatch(ActionCreator.redirectToRoute(`${AppRoute.FILM}/${id}`));
+      dispatch(setReviewUploaded(true));
+      dispatch(redirectToRoute(`${AppRoute.FILM}/${id}`));
       return Promise.resolve();
     }).catch(() => {
-      dispatch(ActionCreator.isReviewUploaded(true));
+      dispatch(setReviewUploaded(true));
     });
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then((response) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.setUser(response.data));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setUser(response.data));
     }).catch(() => {})
 );
 
 export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
     .then((response) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.setUser(response.data));
-      dispatch(ActionCreator.redirectToRoute(`/`));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setUser(response.data));
+      dispatch(redirectToRoute(`/`));
     })
     .catch((error) => {
       throw error;
