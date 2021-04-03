@@ -3,7 +3,7 @@ import {
   loadReviewList,
   redirectToRoute,
   requireAuthorization, setGenre, setGenres,
-  setReviewUploaded, setUser,
+  setShowReviewErrorMsg, setUser,
 } from "./action";
 import {AppRoute, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
 import {getAdaptedFilm} from "../utils/adapters";
@@ -14,9 +14,9 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
       const genres = [DEFAULT_GENRE, ...new Set(data.map((film) => film.genre))];
       const adaptedFilmList = data.map((film) => getAdaptedFilm(film));
 
+      dispatch(loadFilms(adaptedFilmList));
       dispatch(setGenres(genres));
       dispatch(setGenre(DEFAULT_GENRE));
-      dispatch(loadFilms(adaptedFilmList));
     })
 );
 
@@ -38,15 +38,15 @@ export const fetchFilmById = (id) => (dispatch, _getState, api) => (
 );
 
 export const postFilmReview = (id, {comment, rating}) => (dispatch, _getState, api) => {
-  dispatch(setReviewUploaded(false));
+  dispatch(setShowReviewErrorMsg(false));
 
   return api.post(`/comments/${id}`, {comment, rating})
     .then(() => {
-      dispatch(setReviewUploaded(true));
+      dispatch(setShowReviewErrorMsg(false));
       dispatch(redirectToRoute(`${AppRoute.FILM}/${id}`));
       return Promise.resolve();
     }).catch(() => {
-      dispatch(setReviewUploaded(true));
+      dispatch(setShowReviewErrorMsg(true));
     });
 };
 

@@ -22,7 +22,7 @@ const AddReview = ({film, id}) => {
 
   const [isSubmitBlocked, setSubmitBlocked] = useState(true);
   const [errorMessage, setErrorMessage] = useState(``);
-  const isReviewUploaded = useSelector(({FILM}) => FILM.isReviewUploaded);
+  const showReviewErrorMsg = useSelector(({FILM}) => FILM.showReviewErrorMsg);
 
   const handleChangeForm = (evt) => {
     evt.preventDefault();
@@ -53,8 +53,10 @@ const AddReview = ({film, id}) => {
   }, [form.comment, form.rating]);
 
   useEffect(() => {
-    setErrorMessage(`Sorry, something went wrong. Please try again later`);
-  }, [isReviewUploaded]);
+    if (showReviewErrorMsg) {
+      setErrorMessage(`Sorry, something went wrong. Please try again later`);
+    }
+  }, [showReviewErrorMsg]);
 
   return (
     <>

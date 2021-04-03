@@ -12,7 +12,7 @@ export const ActionType = {
   LOAD_FILM_BY_ID: `film/loadFilmById`,
   SET_SELECTED_FILM_BY_ID_LOADED: `film/isSelectedFilmByIdLoaded`,
   LOAD_REVIEW_LIST: `film/loadReviewList`,
-  SET_REVIEW_UPLOADED: `film/isReviewUploaded`
+  SET_SHOW_REVIEW_ERROR_MSG: `film/setShowReviewErrMsg`
 };
 
 
@@ -44,7 +44,7 @@ export const setGenres = createAction(ActionType.SET_GENRES, (genres) => ({
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (route) => ({
   payload: route
 }));
-export const setReviewUploaded = createAction(ActionType.SET_REVIEW_UPLOADED, (flag) => ({
+export const setShowReviewErrorMsg = createAction(ActionType.SET_SHOW_REVIEW_ERROR_MSG, (flag) => ({
   payload: flag
 }));
 export const setSelectedFilmByIdLoaded = createAction(ActionType.SET_SELECTED_FILM_BY_ID_LOADED, (flag) => ({

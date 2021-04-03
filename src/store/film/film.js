@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {setReviewUploaded, setSelectedFilmByIdLoaded, loadFilmById, loadFilms, loadReviewList} from "../action";
+import {setShowReviewErrorMsg, setSelectedFilmByIdLoaded, loadFilmById, loadFilms, loadReviewList} from "../action";
 
 const initialState = {
   films: [],
@@ -7,7 +7,7 @@ const initialState = {
   selectedFilm: null,
   selectedFilmReviewList: [],
   isSelectedFilmLoaded: false,
-  isReviewUploaded: true,
+  showReviewErrorMsg: false,
 };
 
 export const film = createReducer(initialState, (builder) => {
@@ -37,10 +37,10 @@ export const film = createReducer(initialState, (builder) => {
       isSelectedFilmLoaded: action.payload,
     };
   });
-  builder.addCase(setReviewUploaded, (state, action) => {
+  builder.addCase(setShowReviewErrorMsg, (state, action) => {
     return {
       ...state,
-      isReviewUploaded: action.payload,
+      showReviewErrorMsg: action.payload,
     };
   });
 });
