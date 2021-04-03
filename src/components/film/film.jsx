@@ -13,8 +13,8 @@ import {filmPropTypes} from "../../prop-types/film";
 
 const Film = ({history, film, id}) => {
   const {url} = useRouteMatch();
-  const films = useSelector((state) => state.films);
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+  const films = useSelector(({FILM}) => FILM.films);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   return (
     <>

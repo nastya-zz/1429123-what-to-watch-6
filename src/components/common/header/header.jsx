@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 const Header = ({headerClass, children}) => {
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
-  const user = useSelector((state) => state.user);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
+  const user = useSelector(({USER}) => USER.user);
 
   return (
     <header className={headerClass}>

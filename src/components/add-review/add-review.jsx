@@ -22,7 +22,7 @@ const AddReview = ({film, id}) => {
 
   const [isSubmitBlocked, setSubmitBlocked] = useState(true);
   const [errorMessage, setErrorMessage] = useState(``);
-  const isReviewUploaded = useSelector((state) => state.isReviewUploaded);
+  const isReviewUploaded = useSelector(({FILM}) => FILM.isReviewUploaded);
 
   const handleChangeForm = (evt) => {
     evt.preventDefault();

@@ -20,7 +20,7 @@ const AddReviewWrapped = withSelectedFilm(AddReview);
 
 const App = () => {
   const dispatch = useDispatch();
-  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
+  const isFilmsLoaded = useSelector(({FILM}) => FILM.isFilmsLoaded);
 
   useEffect(() => {
     if (!isFilmsLoaded) {

@@ -5,7 +5,6 @@ import {resetMainFilmsCount, setGenre, setGenres, showMoreFilms} from "../action
 
 const initialState = {
   genres: [DEFAULT_GENRE],
-  filteredFilmsByGenre: [],
   activeGenre: DEFAULT_GENRE,
   mainPageFilmCount: FilmCount.MAIN_PAGE,
 };
@@ -15,7 +14,6 @@ export const main = createReducer(initialState, (builder) => {
     return {
       ...state,
       activeGenre: action.payload,
-      filteredFilmsByGenre: action.payload === DEFAULT_GENRE ? state.films : state.films.filter((film) => film.genre === action.payload)
     };
   });
   builder.addCase(showMoreFilms, (state) => {

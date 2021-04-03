@@ -7,7 +7,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   SET_USER: `user/setUser`,
   LOAD_FILMS: `film/loadFilms`,
-  SET_GENRES: `film/setGenres`,
+  SET_GENRES: `main/setGenres`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
   LOAD_FILM_BY_ID: `film/loadFilmById`,
   SET_SELECTED_FILM_BY_ID_LOADED: `film/isSelectedFilmByIdLoaded`,
@@ -26,7 +26,7 @@ export const resetMainFilmsCount = createAction(ActionType.RESET_MAIN_FILMS_COUN
 export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status
 }));
-export const loadFilms = createAction(ActionType.SET_USER, (films) => ({
+export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
   payload: films
 }));
 export const setUser = createAction(ActionType.SET_USER, (user) => ({

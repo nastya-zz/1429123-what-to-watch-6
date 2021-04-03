@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const Player = ({history}) => {
   const {id} = useParams();
-  const films = useSelector((state) => state.films);
+  const films = useSelector(({FILM}) => FILM.films);
   const film = findFilmById(id, films);
   const {previewImage, previewVideoLink} = film;
 

@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 
 
 const MyList = () => {
-  const films = useSelector((state) => state.films);
+  const films = useSelector(({FILM}) => FILM.films);
 
   return (
     <>

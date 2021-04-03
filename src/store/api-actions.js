@@ -2,7 +2,7 @@ import {
   loadFilmById, loadFilms,
   loadReviewList,
   redirectToRoute,
-  requireAuthorization, setGenres,
+  requireAuthorization, setGenre, setGenres,
   setReviewUploaded, setUser,
 } from "./action";
 import {AppRoute, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
@@ -14,8 +14,9 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
       const genres = [DEFAULT_GENRE, ...new Set(data.map((film) => film.genre))];
       const adaptedFilmList = data.map((film) => getAdaptedFilm(film));
 
-      dispatch(loadFilms(adaptedFilmList));
       dispatch(setGenres(genres));
+      dispatch(setGenre(DEFAULT_GENRE));
+      dispatch(loadFilms(adaptedFilmList));
     })
 );
 
