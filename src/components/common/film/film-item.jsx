@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import {filmPropTypes} from "../../../prop-types/film";
@@ -40,4 +40,4 @@ FilmItem.propTypes = {
   isPlaying: PropTypes.bool.isRequired
 };
 
-export default FilmItem;
+export default memo(FilmItem);
