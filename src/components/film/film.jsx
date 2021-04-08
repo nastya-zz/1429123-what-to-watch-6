@@ -9,12 +9,15 @@ import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
 import {filmPropTypes} from "../../prop-types/film";
+import {filmsLikeThisSelector} from "../../store/film/film-selector";
 
 
 const Film = ({history, film, id}) => {
   const {url} = useRouteMatch();
   const films = useSelector(({FILM}) => FILM.films);
+  const store = useSelector((state) => state);
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
+  const moreLikeThisList = filmsLikeThisSelector(store);
 
   return (
     <>
@@ -59,7 +62,7 @@ const Film = ({history, film, id}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={films.slice(0, FilmCount.MORE_LIKE)}/>
+          <FilmList films={moreLikeThisList.slice(0, FilmCount.MORE_LIKE)}/>
         </section>
 
         <Footer />

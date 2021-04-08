@@ -3,10 +3,12 @@ import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import FilmList from "../common/film/film-list";
 import {useSelector} from "react-redux";
+import {filmsFavoriteSelector} from "../../store/film/film-selector";
 
 
 const MyList = () => {
-  const films = useSelector(({FILM}) => FILM.films);
+  const store = useSelector((state) => state);
+  const myList = filmsFavoriteSelector(store);
 
   return (
     <>
@@ -18,7 +20,7 @@ const MyList = () => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmList films={films} />
+          <FilmList films={myList} />
         </section>
 
         <Footer />

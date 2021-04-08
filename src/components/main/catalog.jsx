@@ -4,7 +4,7 @@ import FilmList from "../common/film/film-list";
 import ShowMoreBtn from "./show-more-btn";
 import {useDispatch, useSelector} from "react-redux";
 import {resetMainFilmsCount, setGenre, showMoreFilms} from "../../store/action";
-import {DEFAULT_GENRE} from "../../constants/common";
+import {filmsByGenreSelector} from "../../store/film/film-selector";
 
 const Catalog = () => {
   const dispatch = useDispatch();
@@ -12,8 +12,8 @@ const Catalog = () => {
   const activeGenre = useSelector(({MAIN}) => MAIN.activeGenre);
   const mainPageFilmCount = useSelector(({MAIN}) => MAIN.mainPageFilmCount);
   const genres = useSelector(({MAIN}) => MAIN.genres);
-  const filteredFilmsByGenre = useSelector(({FILM}) => activeGenre === DEFAULT_GENRE ? FILM.films : FILM.films.filter((film) => film.genre === activeGenre));
-
+  const store = useSelector((state) => state);
+  const filteredFilmsByGenre = filmsByGenreSelector(store);
 
   const handleChangeGenre = (type) => {
     dispatch(setGenre(type));
