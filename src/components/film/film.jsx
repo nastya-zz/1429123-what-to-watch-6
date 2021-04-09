@@ -5,19 +5,26 @@ import Footer from "../common/footer/footer";
 import FilmList from "../common/film/film-list";
 import FilmTabs from "./film-tabs";
 import {AppRoute, AuthorizationStatus, FilmCount} from "../../constants/common";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
 import {filmPropTypes} from "../../prop-types/film";
 import {filmsLikeThisSelector} from "../../store/film/film-selector";
+import {addToFavoriteList, fetchFilmById} from "../../store/api-actions";
 
 
-const Film = ({history, film, id}) => {
+const Film = ({history, film}) => {
+  const dispatch = useDispatch();
   const {url} = useRouteMatch();
-  const films = useSelector(({FILM}) => FILM.films);
   const store = useSelector((state) => state);
   const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
   const moreLikeThisList = filmsLikeThisSelector(store);
+
+  const handleMyListBtnClick = async () => {
+    const status = film.isFavorite ? 0 : 1;
+    await dispatch(addToFavoriteList(film.id, status));
+    dispatch(fetchFilmById(film.id));
+  };
 
   return (
     <>
@@ -29,7 +36,7 @@ const Film = ({history, film, id}) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header headerClass={`page-header movie-card__head`}/>
+          <Header headerClass={`page-header movie-card__head`} history={history}/>
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -39,7 +46,7 @@ const Film = ({history, film, id}) => {
                 <span className="movie-card__year">{film.released}</span>
               </p>
 
-              <MovieCardButtons filmId={id} history={history}>
+              <MovieCardButtons film={film} history={history} onBtnClick={handleMyListBtnClick}>
                 {authorizationStatus === AuthorizationStatus.AUTH && <Link to={`${url}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>}
               </MovieCardButtons>
             </div>

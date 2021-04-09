@@ -4,8 +4,20 @@ import Footer from "../common/footer/footer";
 import Catalog from "./catalog";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
+import {useDispatch, useSelector} from "react-redux";
+import {addToFavoriteList, fetchFilmList} from "../../store/api-actions";
 
 const Main = ({history}) => {
+  const film = useSelector(({FILM}) => FILM.films[0]);
+  const dispatch = useDispatch();
+
+  const handleMyListBtnClick = async () => {
+    const status = film.isFavorite ? 0 : 1;
+    await dispatch(addToFavoriteList(film.id, status));
+    dispatch(fetchFilmList());
+  };
+
+
   return (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -14,7 +26,7 @@ const Main = ({history}) => {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header headerClass={`page-header movie-card__head`} />
+      <Header headerClass={`page-header movie-card__head`} history={history}/>
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -30,7 +42,7 @@ const Main = ({history}) => {
               <span className="movie-card__year">2014</span>
             </p>
 
-            <MovieCardButtons filmId={`1`} history={history} />
+            <MovieCardButtons film={film} history={history} onBtnClick={handleMyListBtnClick} />
           </div>
         </div>
       </div>

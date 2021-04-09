@@ -17,7 +17,7 @@ const AddReview = ({film, id}) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header headerClass={`page-header`}>
+          <Header headerClass={`page-header`} history={history}>
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">

@@ -12,7 +12,8 @@ export const ActionType = {
   LOAD_FILM_BY_ID: `film/loadFilmById`,
   SET_SELECTED_FILM_BY_ID_LOADED: `film/isSelectedFilmByIdLoaded`,
   LOAD_REVIEW_LIST: `film/loadReviewList`,
-  SET_SHOW_REVIEW_ERROR_MSG: `film/setShowReviewErrMsg`
+  SET_SHOW_REVIEW_ERROR_MSG: `film/setShowReviewErrMsg`,
+  LOAD_FAVORITE_LIST: `film/loadFavoriteList`,
 };
 
 
@@ -27,6 +28,9 @@ export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATI
   payload: status
 }));
 export const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films
+}));
+export const loadFavoriteList = createAction(ActionType.LOAD_FAVORITE_LIST, (films) => ({
   payload: films
 }));
 export const setUser = createAction(ActionType.SET_USER, (user) => ({

@@ -1,22 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {AppRoute} from "../../../constants/common";
+import {filmPropTypes} from "../../../prop-types/film";
 
-const MovieCardButtons = ({children, filmId, history}) => {
+const MovieCardButtons = ({children, film, history, onBtnClick}) => {
 
   return (
     <div className="movie-card__buttons">
-      <button onClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)} className="btn btn--play movie-card__button" type="button">
+      <button onClick={() => history.push(`${AppRoute.PLAYER}/${film.id}`)} className="btn btn--play movie-card__button" type="button">
         <svg viewBox="0 0 19 19" width="19" height="19">
           <use xlinkHref="#play-s"></use>
         </svg>
         <span>Play</span>
       </button>
-      <button onClick={() => history.push(`${AppRoute.MY_LIST}`)} className="btn btn--list movie-card__button" type="button">
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#add"></use>
-        </svg>
-        <span>My list</span>
+      <button onClick={() => onBtnClick()} className="btn btn--list movie-card__button" type="button">
+        {
+          film.isFavorite ?
+            <>
+              <svg viewBox="0 0 19 20" width="19" height="20">
+                <use xlinkHref="#in-list"></use>
+              </svg>
+              <span>In list</span>
+            </>
+            :
+            <>
+              <svg viewBox="0 0 19 20" width="19" height="20">
+                <use xlinkHref="#add"></use>
+              </svg>
+              <span>My list</span>
+            </>
+        }
+
       </button>
 
       {children}
@@ -26,8 +40,9 @@ const MovieCardButtons = ({children, filmId, history}) => {
 
 MovieCardButtons.propTypes = {
   children: PropTypes.node,
-  filmId: PropTypes.string,
-  history: PropTypes.object
+  film: filmPropTypes,
+  history: PropTypes.object,
+  onBtnClick: PropTypes.func
 };
 
 export default MovieCardButtons;

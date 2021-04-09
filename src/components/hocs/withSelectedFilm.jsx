@@ -5,6 +5,7 @@ import LoadingScreen from "../loading/loading";
 import {useParams} from "react-router-dom";
 import {setSelectedFilmByIdLoaded} from "../../store/action";
 
+// eslint-disable-next-line react/display-name
 const withSelectedFilm = (Component) => ({...props}) => {
   const {id} = useParams();
   const film = useSelector(({FILM}) => FILM.selectedFilm);

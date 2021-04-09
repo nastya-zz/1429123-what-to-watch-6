@@ -1,9 +1,14 @@
 import {
-  loadFilmById, loadFilms,
+  loadFavoriteList,
+  loadFilmById,
+  loadFilms,
   loadReviewList,
   redirectToRoute,
-  requireAuthorization, setGenre, setGenres,
-  setShowReviewErrorMsg, setUser,
+  requireAuthorization,
+  setGenre,
+  setGenres,
+  setShowReviewErrorMsg,
+  setUser,
 } from "./action";
 import {AppRoute, AuthorizationStatus, DEFAULT_GENRE} from "../constants/common";
 import {getAdaptedFilm} from "../utils/adapters";
@@ -17,6 +22,22 @@ export const fetchFilmList = () => (dispatch, _getState, api) => (
       dispatch(loadFilms(adaptedFilmList));
       dispatch(setGenres(genres));
       dispatch(setGenre(DEFAULT_GENRE));
+    })
+);
+
+export const fetchFavoriteFilmList = () => (dispatch, _getState, api) => (
+  api.get(`/favorite`)
+    .then(({data}) => {
+      const adaptedFilmList = data.map((film) => getAdaptedFilm(film));
+
+      dispatch(loadFavoriteList(adaptedFilmList));
+    })
+);
+
+export const addToFavoriteList = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => {
+      return data;
     })
 );
 
