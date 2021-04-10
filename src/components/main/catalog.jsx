@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {resetMainFilmsCount, setGenre, showMoreFilms} from "../../store/action";
 import {filmsByGenreSelector} from "../../store/film/film-selector";
 
-const Catalog = () => {
+const Catalog = ({history}) => {
   const dispatch = useDispatch();
 
   const activeGenre = useSelector(({MAIN}) => MAIN.activeGenre);
@@ -35,7 +35,7 @@ const Catalog = () => {
 
       <GenreList genres={genres} activeGenre={activeGenre} handleChangeGenre={handleChangeGenre}/>
 
-      <FilmList films={filteredFilmsByGenre.slice(0, mainPageFilmCount)}/>
+      <FilmList films={filteredFilmsByGenre.slice(0, mainPageFilmCount)} history={history}/>
 
       {
         filteredFilmsByGenre.length > mainPageFilmCount

@@ -12,7 +12,7 @@ const Main = ({history}) => {
     <Promo history={history}/>
 
     <div className="page-content">
-      <Catalog />
+      <Catalog history={history} />
       <Footer />
     </div>
   </React.Fragment>

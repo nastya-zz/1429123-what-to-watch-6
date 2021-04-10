@@ -26,7 +26,7 @@ const MyList = ({history}) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmList films={myList} />
+          <FilmList films={myList} history={history}/>
         </section>
 
         <Footer />
