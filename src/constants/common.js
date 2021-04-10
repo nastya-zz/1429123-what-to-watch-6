@@ -30,3 +30,27 @@ export const FavoriteFilmStatus = {
   REMOVE: 0,
   ADD: 1
 };
+
+const FilmRating = {
+  BAD: `Bad`,
+  NORMAL: `Normal`,
+  GOOD: `Good`,
+  VERY_GOOD: `Very good`,
+  AWESOME: `Awesome`
+};
+
+const FilmRatingRules = [
+  {rating: FilmRating.BAD, from: 0, to: 3},
+  {rating: FilmRating.NORMAL, from: 3, to: 5},
+  {rating: FilmRating.GOOD, from: 5, to: 8},
+  {rating: FilmRating.VERY_GOOD, from: 8, to: 10},
+  {rating: FilmRating.AWESOME, from: 10, to: 10}
+];
+
+export const getFilmRating = (rating) => {
+  const ratingRule = FilmRatingRules.find((rule) => {
+    return rule.from <= rating && rating < rule.to;
+  });
+
+  return ratingRule.rating;
+};
