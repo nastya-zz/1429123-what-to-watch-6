@@ -5,6 +5,7 @@ import ShowMoreBtn from "./show-more-btn";
 import {useDispatch, useSelector} from "react-redux";
 import {resetMainFilmsCount, setGenre, showMoreFilms} from "../../store/action";
 import {filmsByGenreSelector} from "../../store/film/film-selector";
+import PropTypes from "prop-types";
 
 const Catalog = ({history}) => {
   const dispatch = useDispatch();
@@ -48,5 +49,8 @@ const Catalog = ({history}) => {
   );
 };
 
+Catalog.propTypes = {
+  history: PropTypes.object.isRequired
+};
 
 export default Catalog;

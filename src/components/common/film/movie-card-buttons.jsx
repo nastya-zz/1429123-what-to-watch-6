@@ -13,28 +13,35 @@ const MovieCardButtons = ({children, film, history, onBtnClick}) => {
         </svg>
         <span>Play</span>
       </button>
-      <button onClick={() => onBtnClick()} className="btn btn--list movie-card__button" type="button">
-        {
-          film.isFavorite ?
-            <>
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#in-list"></use>
-              </svg>
-              <span>In list</span>
-            </>
-            :
-            <>
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-            </>
-        }
 
+      <button onClick={() => onBtnClick()} className="btn btn--list movie-card__button" type="button">
+        {film.isFavorite ? <RemoveFromMyList/> : <AddToMyListButton/>}
       </button>
 
       {children}
     </div>
+  );
+};
+
+const RemoveFromMyList = () => {
+  return (
+    <>
+      <svg viewBox="0 0 19 20" width="19" height="20">
+        <use xlinkHref="#in-list"></use>
+      </svg>
+      <span>My list</span>
+    </>
+  );
+};
+
+const AddToMyListButton = () => {
+  return (
+    <>
+      <svg viewBox="0 0 19 20" width="19" height="20">
+        <use xlinkHref="#add"></use>
+      </svg>
+      <span>My list</span>
+    </>
   );
 };
 
