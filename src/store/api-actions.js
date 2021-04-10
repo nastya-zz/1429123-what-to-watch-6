@@ -6,7 +6,7 @@ import {
   redirectToRoute,
   requireAuthorization,
   setGenre,
-  setGenres,
+  setGenres, setPromoFilm,
   setShowReviewErrorMsg,
   setUser,
 } from "./action";
@@ -45,6 +45,13 @@ export const fetchReviewList = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
     .then(({data}) => {
       dispatch(loadReviewList(data));
+    })
+);
+export const fetchPromoFilm = () => (dispatch, _getState, api) => (
+  api.get(`/films/promo`)
+    .then(({data}) => {
+      const adaptedFilm = getAdaptedFilm(data);
+      dispatch(setPromoFilm(adaptedFilm));
     })
 );
 

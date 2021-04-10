@@ -25,3 +25,8 @@ export const Tab = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`
 };
+
+export const FavoriteFilmStatus = {
+  REMOVE: 0,
+  ADD: 1
+};

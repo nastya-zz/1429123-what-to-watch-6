@@ -8,7 +8,7 @@ import AddReview from '../add-review/add-review';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
-import {fetchFilmList} from "../../store/api-actions";
+import {fetchFilmList, fetchPromoFilm} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants/common";
@@ -24,6 +24,7 @@ const App = () => {
 
   useEffect(() => {
     if (!isFilmsLoaded) {
+      dispatch(fetchPromoFilm());
       dispatch(fetchFilmList());
     }
   }, [isFilmsLoaded]);

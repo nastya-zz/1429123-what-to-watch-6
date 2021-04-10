@@ -4,7 +4,7 @@ import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import FilmList from "../common/film/film-list";
 import FilmTabs from "./film-tabs";
-import {AppRoute, AuthorizationStatus, FilmCount} from "../../constants/common";
+import {AppRoute, AuthorizationStatus, FavoriteFilmStatus, FilmCount} from "../../constants/common";
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import MovieCardButtons from "../common/film/movie-card-buttons";
@@ -21,7 +21,8 @@ const Film = ({history, film}) => {
   const moreLikeThisList = filmsLikeThisSelector(store);
 
   const handleMyListBtnClick = async () => {
-    const status = film.isFavorite ? 0 : 1;
+    const status = film.isFavorite ? FavoriteFilmStatus.REMOVE : FavoriteFilmStatus.ADD;
+
     await dispatch(addToFavoriteList(film.id, status));
     dispatch(fetchFilmById(film.id));
   };

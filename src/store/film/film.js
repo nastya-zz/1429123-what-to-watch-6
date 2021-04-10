@@ -4,6 +4,7 @@ import {
   loadFilmById,
   loadFilms,
   loadReviewList,
+  setPromoFilm,
   setSelectedFilmByIdLoaded,
   setShowReviewErrorMsg,
 } from "../action";
@@ -16,6 +17,7 @@ const initialState = {
   isSelectedFilmLoaded: false,
   showReviewErrorMsg: false,
   myList: [],
+  promoFilm: null,
 };
 
 export const film = createReducer(initialState, (builder) => {
@@ -55,6 +57,12 @@ export const film = createReducer(initialState, (builder) => {
     return {
       ...state,
       myList: action.payload,
+    };
+  });
+  builder.addCase(setPromoFilm, (state, action) => {
+    return {
+      ...state,
+      promoFilm: action.payload,
     };
   });
 });
