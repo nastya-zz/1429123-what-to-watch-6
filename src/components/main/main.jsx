@@ -49,7 +49,7 @@ const Main = ({history}) => {
     </section>
 
     <div className="page-content">
-      <Catalog />
+      <Catalog history={history} />
       <Footer />
     </div>
   </React.Fragment>

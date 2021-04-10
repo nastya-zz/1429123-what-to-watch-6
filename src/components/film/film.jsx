@@ -69,7 +69,7 @@ const Film = ({history, film}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={moreLikeThisList.slice(0, FilmCount.MORE_LIKE)}/>
+          <FilmList films={moreLikeThisList.slice(0, FilmCount.MORE_LIKE)} history={history}/>
         </section>
 
         <Footer />
