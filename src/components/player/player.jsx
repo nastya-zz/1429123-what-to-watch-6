@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createRef, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
 import {useSelector} from "react-redux";
@@ -9,12 +9,36 @@ const Player = ({history}) => {
   const films = useSelector(({FILM}) => FILM.films);
   const film = findFilmById(id, films);
   const {previewImage, previewVideoLink} = film;
+  const videoRef = createRef();
+  const FULLSCREEN_BROWSER_METHODS = [`requestFullscreen`, `webkitRequestFullscreen`, `msRequestFullScreen`];
+  const [isPlaying, setPLaying] = useState(true);
+
+
+  const handlePlayClick = () => {
+    setPLaying(!isPlaying);
+  };
+  const handleFullScreenClick = () => {
+    // todo implement
+  };
+
+  useEffect(() => {
+    if (!isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  }, [isPlaying]);
 
 
   return (
     <>
       <div className="player">
-        <video src={previewVideoLink} className="player__video" poster={previewImage} />
+        <video
+          ref={videoRef}
+          src={previewVideoLink}
+          className="player__video"
+          poster={previewImage}
+        />
 
         <button onClick={()=>history.goBack()} type="button" className="player__exit">Exit</button>
 
@@ -28,25 +52,39 @@ const Player = ({history}) => {
           </div>
 
           <div className="player__controls-row">
-            <button type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s" />
-              </svg>
-              <span>Play</span>
-            </button>
+
             <div className="player__name">Transpotting</div>
 
-            <button type="button" className="player__full-screen">
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen" />
-              </svg>
-              <span>Full screen</span>
-            </button>
+            <PlayButton isPlaying={isPlaying} onPlayBtnClick={handlePlayClick}/>
+
+            <FullScreenButton onFullScreenBtnClick={handleFullScreenClick}/>
           </div>
         </div>
       </div>
 
     </>
+  );
+};
+
+const PlayButton = ({isPlaying, onPlayBtnClick}) => {
+  return (
+    <button type="button" className="player__play" onClick={onPlayBtnClick}>
+      <svg viewBox="0 0 19 19" width="19" height="19">
+        {isPlaying ? <use xlinkHref="#pause"/> : <use xlinkHref="#play-s"/>}
+      </svg>
+      <span>{isPlaying ? `Pause` : `Play`}</span>
+    </button>
+  );
+};
+
+const FullScreenButton = ({onFullScreenBtnClick}) => {
+  return (
+    <button type="button" className="player__full-screen">
+      <svg viewBox="0 0 27 27" width="27" height="27">
+        <use xlinkHref="#full-screen" />
+      </svg>
+      <span>Full screen</span>
+    </button>
   );
 };
 
