@@ -18,13 +18,13 @@ const VideoPlayer = (props) => {
 
   return (
     <video
-      crossOrigin="anonymous"
       ref={videoRef}
-      src={previewVideoLink}
       className="player__video"
       poster={previewImage}
       {...restProps}
-    />
+    >
+      <source src={previewVideoLink}/>
+    </video>
   );
 };
 
