@@ -10,7 +10,6 @@ const withSelectedFilm = (Component) => ({...props}) => {
   const {id} = useParams();
   const film = useSelector(({FILM}) => FILM.selectedFilm);
   const isFilmLoaded = useSelector(({FILM}) => FILM.isSelectedFilmLoaded);
-  //todo create error load
   const dispatch = useDispatch();
 
   useEffect(() => {
