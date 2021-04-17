@@ -3,46 +3,43 @@ import GenreList from "./genre-list";
 import FilmList from "../common/film/film-list";
 import ShowMoreBtn from "./show-more-btn";
 import {useDispatch, useSelector} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {resetMainFilmsCount, setGenre, showMoreFilms} from "../../store/action";
+import {filmsByGenreSelector} from "../../store/film/film-selector";
+import PropTypes from "prop-types";
 
-const Catalog = () => {
+const Catalog = ({history}) => {
   const dispatch = useDispatch();
 
-  const {
-    mainPageFilmCount,
-    filteredFilmsByGenre,
-    activeGenre,
-    genres
-  } = useSelector((state) => ({
-    mainPageFilmCount: state.mainPageFilmCount,
-    filteredFilmsByGenre: state.filteredFilmsByGenre,
-    genres: state.genres,
-    activeGenre: state.activeGenre
-  }));
+  const activeGenre = useSelector(({MAIN}) => MAIN.activeGenre);
+  const mainPageFilmCount = useSelector(({MAIN}) => MAIN.mainPageFilmCount);
+  const genres = useSelector(({MAIN}) => MAIN.genres);
+  const store = useSelector((state) => state);
+  const filteredFilmsByGenre = filmsByGenreSelector(store);
 
   const handleChangeGenre = (type) => {
-    dispatch(ActionCreator.setGenre(type));
-    dispatch(ActionCreator.resetMainFilmsCount());
+    dispatch(setGenre(type));
+    dispatch(resetMainFilmsCount());
   };
 
   const handleBtnClick = () => {
-    dispatch(ActionCreator.showMoreFilms());
+    dispatch(showMoreFilms());
   };
 
   useEffect(() => {
-    dispatch(ActionCreator.setGenre(genres[0]));
-    dispatch(ActionCreator.resetMainFilmsCount());
+    dispatch(setGenre(genres[0]));
+    dispatch(resetMainFilmsCount());
   }, []);
 
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <GenreList genres={genres} activeGenre={activeGenre} handleChangeGenre={handleChangeGenre} />
+      <GenreList genres={genres} activeGenre={activeGenre} handleChangeGenre={handleChangeGenre}/>
 
-      <FilmList films={filteredFilmsByGenre.slice(0, mainPageFilmCount)} />
+      <FilmList films={filteredFilmsByGenre.slice(0, mainPageFilmCount)} history={history}/>
 
-      { filteredFilmsByGenre.length > mainPageFilmCount
+      {
+        filteredFilmsByGenre.length > mainPageFilmCount
         &&
         <ShowMoreBtn
           handleBtnClick={handleBtnClick}
@@ -52,5 +49,8 @@ const Catalog = () => {
   );
 };
 
+Catalog.propTypes = {
+  history: PropTypes.object.isRequired
+};
 
 export default Catalog;

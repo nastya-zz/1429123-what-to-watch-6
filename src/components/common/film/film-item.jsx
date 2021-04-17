@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import {filmPropTypes} from "../../../prop-types/film";
@@ -7,7 +7,7 @@ import {AppRoute} from "../../../constants/common";
 
 
 const FilmItem = (props) => {
-  const {film, handleHover, isPlaying} = props;
+  const {film, handleHover, isPlaying, history} = props;
   const {previewImage, id, name, previewVideoLink} = film;
 
   return (
@@ -16,6 +16,7 @@ const FilmItem = (props) => {
         onMouseEnter={()=>handleHover(id)}
         onMouseLeave={()=>handleHover(null)}
         className="small-movie-card catalog__movies-card"
+        onClick={() => history.push(`${AppRoute.FILM}/${id}`)}
       >
         <div className="small-movie-card__image">
           <VideoPlayer
@@ -37,7 +38,8 @@ const FilmItem = (props) => {
 FilmItem.propTypes = {
   film: filmPropTypes,
   handleHover: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired
+  isPlaying: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default FilmItem;
+export default memo(FilmItem);

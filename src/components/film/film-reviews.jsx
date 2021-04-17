@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {formatDate} from "../../utils/film";
 
 const FilmReviews = () => {
-  const commentList = useSelector((state) => state.selectedFilmReviewList);
+  const commentList = useSelector(({FILM}) => FILM.selectedFilmReviewList);
 
   return (
     <>

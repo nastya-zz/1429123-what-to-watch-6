@@ -8,7 +8,7 @@ import AddReview from '../add-review/add-review';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../app/page-404';
-import {fetchFilmList} from "../../store/api-actions";
+import {fetchFilmList, fetchPromoFilm} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants/common";
@@ -17,13 +17,15 @@ import withSelectedFilm from "../hocs/withSelectedFilm";
 
 const FilmWrapped = withSelectedFilm(Film);
 const AddReviewWrapped = withSelectedFilm(AddReview);
+const PlayerWrapped = withSelectedFilm(Player);
 
 const App = () => {
   const dispatch = useDispatch();
-  const isFilmsLoaded = useSelector((state) => state.isFilmsLoaded);
+  const isFilmsLoaded = useSelector(({FILM}) => FILM.isFilmsLoaded);
 
   useEffect(() => {
     if (!isFilmsLoaded) {
+      dispatch(fetchPromoFilm());
       dispatch(fetchFilmList());
     }
   }, [isFilmsLoaded]);
@@ -42,7 +44,7 @@ const App = () => {
         <PrivateRoute exact path={AppRoute.MY_LIST} render={({history}) => <MyList history={history} />}/>
         <PrivateRoute exact path={`${AppRoute.FILM}/:id${AppRoute.ADD_REVIEW}`} render={({history}) => <AddReviewWrapped history={history} />}/>
         <Route exact path={`${AppRoute.FILM}/:id`} render={({history}) => <FilmWrapped history={history}/>} />
-        <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <Player history={history} />} />
+        <Route exact path={`${AppRoute.PLAYER}/:id`} render={({history}) => <PlayerWrapped history={history} />} />
         <Route>
           <PageNotFound />
         </Route>

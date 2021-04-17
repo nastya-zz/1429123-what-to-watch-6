@@ -1,13 +1,20 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {AuthorizationStatus} from "../../../constants/common";
+import {AppRoute, AuthorizationStatus} from "../../../constants/common";
 import LogoLink from "../logo/logo-link";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Header = ({headerClass, children}) => {
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
-  const user = useSelector((state) => state.user);
+const Header = ({headerClass, children, history}) => {
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
+  const user = useSelector(({USER}) => USER.user);
+
+  const handleAvatarClick = () => {
+    if (history.location.pathname === AppRoute.MY_LIST) {
+      return;
+    }
+    history.push(`${AppRoute.MY_LIST}`);
+  };
 
   return (
     <header className={headerClass}>
@@ -21,7 +28,7 @@ const Header = ({headerClass, children}) => {
         {
           authorizationStatus === AuthorizationStatus.AUTH
             ?
-            (<div className="user-block__avatar">
+            (<div className="user-block__avatar" onClick={() => handleAvatarClick()}>
               <img src={user.avatar_url} alt="User avatar" width="63" height="63"/>
             </div>)
             :
@@ -35,7 +42,8 @@ const Header = ({headerClass, children}) => {
 
 Header.propTypes = {
   headerClass: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  history: PropTypes.object
 };
 
 

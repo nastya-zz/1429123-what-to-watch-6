@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 const PrivateRoute = ({render, path, exact}) => {
-  const authorizationStatus = useSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useSelector(({USER}) => USER.authorizationStatus);
 
   return (
     <Route

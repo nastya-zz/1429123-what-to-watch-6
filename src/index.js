@@ -1,26 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {reducer} from "./store/reducer";
-import {composeWithDevTools} from 'redux-devtools-extension';
-import {ActionCreator} from './store/action';
+import reducer from "./store/root-reducer";
 import {AuthorizationStatus} from "./constants/common";
-import thunk from "redux-thunk";
 import {createAPI} from "./api";
 import {checkAuth} from "./store/api-actions";
 import {redirect} from './store/middlewares/redirect';
+import {configureStore} from "@reduxjs/toolkit";
+import {redirectToRoute, requireAuthorization} from "./store/action";
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
-    () => store.dispatch(ActionCreator.redirectToRoute(`/page-not-found`))
+    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
+    () => store.dispatch(redirectToRoute(`/page-not-found`))
 );
 
-const store = createStore(reducer, composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect)
-));
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api
+      },
+    }).concat(redirect)
+});
 
 store.dispatch(checkAuth());
 

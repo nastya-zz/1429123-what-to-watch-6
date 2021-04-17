@@ -3,14 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchFilmById} from "../../store/api-actions";
 import LoadingScreen from "../loading/loading";
 import {useParams} from "react-router-dom";
-import {ActionCreator} from "../../store/action";
+import {setSelectedFilmByIdLoaded} from "../../store/action";
 
 // eslint-disable-next-line react/display-name
 const withSelectedFilm = (Component) => ({...props}) => {
   const {id} = useParams();
-  const film = useSelector((state) => state.selectedFilm);
-  const isFilmLoaded = useSelector((state) => state.isSelectedFilmLoaded);
-
+  const film = useSelector(({FILM}) => FILM.selectedFilm);
+  const isFilmLoaded = useSelector(({FILM}) => FILM.isSelectedFilmLoaded);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const withSelectedFilm = (Component) => ({...props}) => {
     }
   }, [isFilmLoaded]);
   useEffect(() => {
-    dispatch(ActionCreator.isSelectedFilmByIdLoaded(false));
+    dispatch(setSelectedFilmByIdLoaded(false));
   }, [id]);
 
 

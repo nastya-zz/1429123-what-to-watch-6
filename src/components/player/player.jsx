@@ -1,47 +1,78 @@
-import React from "react";
+import React, {createRef, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {findFilmById} from "../../utils/film";
 import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
+import PlayerTimeControl from "./player-time-control";
+import PlayButton from "./play-button";
+import FullScreenButton from "./fullscreen-button";
+
+const BrowserMethods = {
+  REQUEST_FULLSCREEN: [`requestFullscreen`, `webkitRequestFullscreen`, `msRequestFullScreen`],
+  EXIT_FULLSCREEN: [`exitFullscreen`, `webkitExitFullscreen`, `mozCancelFullScreen`, `msExitFullscreen`]
+};
 
 const Player = ({history}) => {
   const {id} = useParams();
-  const films = useSelector((state) => state.films);
+  const films = useSelector(({FILM}) => FILM.films);
   const film = findFilmById(id, films);
-  const {previewImage, previewVideoLink} = film;
+  const {previewImage, previewVideoLink, runTime} = film;
+  const videoRef = createRef();
+  const [isPlaying, setPLaying] = useState(true);
+
+  const handleExitButton = () => {
+    setPLaying(false);
+    history.goBack();
+  };
+
+  const handlePlayClick = () => {
+    setPLaying(!isPlaying);
+  };
+
+  const handleFullScreenClick = () => {
+    const fullScreenMethod = BrowserMethods.REQUEST_FULLSCREEN.find((method) => videoRef.current[method]);
+    videoRef.current[fullScreenMethod]();
+  };
+
+  useEffect(() => {
+    if (!isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    videoRef.current.onended = () => {
+      const exitScreenMethod = BrowserMethods.EXIT_FULLSCREEN.find((method) => videoRef.current[method]);
+      videoRef.current[exitScreenMethod]();
+
+      setPLaying(false);
+    };
+  }, []);
 
 
   return (
     <>
       <div className="player">
-        <video src={previewVideoLink} className="player__video" poster={previewImage} />
+        <video
+          ref={videoRef}
+          src={previewVideoLink}
+          className="player__video"
+          poster={previewImage}
+        />
 
-        <button onClick={()=>history.goBack()} type="button" className="player__exit">Exit</button>
+        <button onClick={handleExitButton} type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value="30" max="100" />
-              <div className="player__toggler" style={{left: 30 + `%`}}>Toggler</div>
-            </div>
-            <div className="player__time-value">1:30:29</div>
-          </div>
+          <PlayerTimeControl runTime={runTime} isPlaying={isPlaying} progressPercent={30}/>
 
           <div className="player__controls-row">
-            <button type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s" />
-              </svg>
-              <span>Play</span>
-            </button>
             <div className="player__name">Transpotting</div>
 
-            <button type="button" className="player__full-screen">
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen" />
-              </svg>
-              <span>Full screen</span>
-            </button>
+            <PlayButton isPlaying={isPlaying} onPlayBtnClick={handlePlayClick}/>
+
+            <FullScreenButton onFullScreenBtnClick={handleFullScreenClick}/>
           </div>
         </div>
       </div>
@@ -49,6 +80,7 @@ const Player = ({history}) => {
     </>
   );
 };
+
 
 Player.propTypes = {
   history: PropTypes.object.isRequired

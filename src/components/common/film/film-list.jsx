@@ -1,17 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import FilmItem from "./film-item";
 import {filmsPropTypes} from "../../../prop-types/film";
 import {PLAYING_DELAY} from "../../../constants/common";
+import PropTypes from "prop-types";
 
-const FilmList = ({films}) => {
+
+const FilmList = ({films, history}) => {
 
   const [activeFilmId, setActiveFilmId] = useState(null);
   const [isPlaying, setPlaying] = useState(false);
 
-  const handleHover = (id) => {
+  const handleHover = useCallback((id) => {
     setPlaying(false);
     setActiveFilmId(id);
-  };
+  }, [activeFilmId]);
+
 
   let timeoutId;
 
@@ -36,6 +39,7 @@ const FilmList = ({films}) => {
           isPlaying={isPlaying && (activeFilmId === film.id)}
           key={i}
           film={film}
+          history={history}
         />
       ))}
     </div>
@@ -45,6 +49,7 @@ const FilmList = ({films}) => {
 
 FilmList.propTypes = {
   films: filmsPropTypes,
+  history: PropTypes.object.isRequired
 };
 
 export default FilmList;

@@ -1,30 +1,42 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../common/header/header";
 import Footer from "../common/footer/footer";
 import FilmList from "../common/film/film-list";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchFavoriteFilmList} from "../../store/api-actions";
+import PropTypes from "prop-types";
 
 
-const MyList = () => {
-  const films = useSelector((state) => state.films);
+const MyList = ({history}) => {
+  const myList = useSelector(({FILM}) => FILM.myList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmList());
+  }, []);
+
 
   return (
     <>
       <div className="user-page">
-        <Header headerClass={`page-header user-page__head`} >
+        <Header headerClass={`page-header user-page__head`} history={history}>
           <h1 className="page-title user-page__title">My list</h1>
         </Header>
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <FilmList films={films} />
+          <FilmList films={myList} history={history}/>
         </section>
 
         <Footer />
       </div>
     </>
   );
+};
+
+MyList.propTypes = {
+  history: PropTypes.object
 };
 
 export default MyList;

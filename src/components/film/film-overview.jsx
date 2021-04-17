@@ -1,5 +1,6 @@
 import React from "react";
 import {filmPropTypes} from "../../prop-types/film";
+import {getFilmRating} from "../../constants/common";
 
 const FilmOverview = ({film}) => {
   const {rating, scoresCount, description, director, starring} = film;
@@ -10,7 +11,7 @@ const FilmOverview = ({film}) => {
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">Very good</span>
+          <span className="movie-rating__level">{getFilmRating(film.rating)}</span>
           <span className="movie-rating__count">{scoresCount}</span>
         </p>
       </div>
