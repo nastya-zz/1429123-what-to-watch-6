@@ -27,7 +27,7 @@ export const getFilmDuration = (minutes) => {
 
 /**
  *  форматирование даты
- * @param {string} dateLong
+ * @param {number} dateLong
  * @return {string}
  */
 export const formatDate = (dateLong) => {
