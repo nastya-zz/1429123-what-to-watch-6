@@ -11,6 +11,14 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
+export const ApiRoute = {
+  FILMS: `/films`,
+  FAVORITE: `/favorite`,
+  FILM_PROMO: `/films/promo`,
+  LOGIN: `/login`,
+  COMMENTS: `/comments`,
+};
+
 export const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
