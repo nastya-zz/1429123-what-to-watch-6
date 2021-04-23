@@ -10,10 +10,6 @@ export const filmsByGenreSelector = createSelector(
     activeGenreSelector,
     (films, activeGenre) => DEFAULT_GENRE === activeGenre ? films : films.filter((film) => film.genre === activeGenre)
 );
-export const filmsFavoriteSelector = createSelector(
-    filmsSelector,
-    (films) => films.filter((film) => film.isFavorite)
-);
 export const filmsLikeThisSelector = createSelector(
     filmsSelector,
     selectedFilmSelector,

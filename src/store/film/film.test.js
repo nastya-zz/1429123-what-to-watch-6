@@ -8,7 +8,7 @@ import {
   setShowReviewErrorMsg,
 } from "../action";
 
-describe(``, () => {
+describe(`Test film reducer`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(film(undefined, {}))
       .toEqual({
