@@ -1,17 +1,19 @@
 import {film} from './film';
 import MockAdapter from "axios-mock-adapter";
 import {
-  ActionType,
   loadFavoriteList,
   loadFilmById,
   loadFilms,
-  loadReviewList, setGenre, setGenres, setPromoFilm,
+  loadReviewList,
+  setGenre,
+  setGenres,
+  setPromoFilm,
   setSelectedFilmByIdLoaded,
   setShowReviewErrorMsg,
 } from "../action";
 import {createAPI} from "../../api";
 import {ApiRoute, DEFAULT_GENRE} from "../../constants/common";
-import {addToFavoriteList, fetchFavoriteFilmList, fetchFilmList, fetchReviewList} from "../api-actions";
+import {fetchFavoriteFilmList, fetchFilmList, fetchReviewList} from "../api-actions";
 import {films} from "../../mocks/films";
 import {getAdaptedFilm} from "../../utils/adapters";
 import {reviews} from "../../mocks/review";
